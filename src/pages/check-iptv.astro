@@ -1,4 +1,205 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Check Your IPTV Subscription | NASA IPTV" description="Subscription status assistance. Contact NASA IPTV support on WhatsApp."><section class="page-hero"><div class="container"><span class="eyebrow">NASA IPTV</span><h1 class="page-title" data-en="Check Your IPTV Subscription" data-ar="افحص اشتراكك">Check Your IPTV Subscription</h1><p data-en="Subscription status assistance" data-ar="مساعدة في التحقق من الاشتراك">Subscription status assistance</p></div></section><section class="section"><div class="container"><div class="info-panel reveal"><h2 data-en="Subscription status assistance" data-ar="مساعدة في التحقق من الاشتراك">Subscription status assistance</h2><p data-en="For privacy and security, do not enter your IPTV password on this website. Contact our support team with your order reference to request a subscription status check." data-ar="لحماية بياناتك، لا تدخل كلمة مرور IPTV في هذا الموقع. تواصل مع الدعم برقم الطلب لطلب التحقق من حالة الاشتراك.">For privacy and security, do not enter your IPTV password on this website. Contact our support team with your order reference to request a subscription status check.</p><a class="btn" href="https://wa.me/46700408208?text=Hello%20NASA%20IPTV%2C%20I%20need%20assistance." target="_blank" rel="noopener" data-en="Contact us on WhatsApp ↗" data-ar="تواصل عبر واتساب ↗">Contact us on WhatsApp ↗</a></div></div></section></Base>
+
+<Base title="Check IPTV Subscription | NASA IPTV" description="Check your IPTV subscription status, expiration date, and remaining days securely through NASA IPTV.">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">NASA IPTV</span>
+      <h1 class="page-title" data-en="Check Your Subscription" data-ar="افحص اشتراكك">Check Your Subscription</h1>
+      <p data-en="View your account status and subscription expiration date." data-ar="تحقق من حالة حسابك وتاريخ انتهاء الاشتراك.">View your account status and subscription expiration date.</p>
+    </div>
+  </section>
+
+  <section class="section check-section">
+    <div class="container">
+      <div class="check-card">
+        <div class="check-card-head">
+          <div class="check-icon" aria-hidden="true">✓</div>
+          <h2 data-en="IPTV Subscription Checker" data-ar="فحص صلاحية اشتراك IPTV">IPTV Subscription Checker</h2>
+          <p data-en="Enter the username and password provided with your IPTV subscription." data-ar="أدخل اسم المستخدم وكلمة المرور الخاصة باشتراك IPTV.">Enter the username and password provided with your IPTV subscription.</p>
+        </div>
+
+        <form id="subscription-check-form" class="check-form" autocomplete="off">
+          <label for="check-username" data-en="Username" data-ar="اسم المستخدم">Username</label>
+          <input id="check-username" name="username" type="text" required maxlength="150" autocomplete="off" spellcheck="false" placeholder="Username" data-placeholder-en="Username" data-placeholder-ar="اسم المستخدم" />
+
+          <label for="check-password" data-en="Password" data-ar="كلمة المرور">Password</label>
+          <div class="password-wrap">
+            <input id="check-password" name="password" type="password" required maxlength="150" autocomplete="off" placeholder="Password" data-placeholder-en="Password" data-placeholder-ar="كلمة المرور" />
+            <button type="button" id="toggle-check-password" class="show-password" aria-label="Show password" data-aria-en="Show or hide password" data-aria-ar="إظهار أو إخفاء كلمة المرور">◉</button>
+          </div>
+
+          <button class="btn check-submit" id="check-submit" type="submit">
+            <span data-en="Check Now" data-ar="افحص الآن">Check Now</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </form>
+
+        <div id="check-message" class="check-message" role="status" aria-live="polite" hidden></div>
+
+        <div id="check-result" class="check-result" aria-live="polite" hidden>
+          <div class="result-heading">
+            <span id="result-symbol" aria-hidden="true"></span>
+            <strong id="result-status"></strong>
+          </div>
+          <div id="result-details" class="result-details"></div>
+        </div>
+
+        <p class="check-note" data-en="Your credentials are sent to the subscription-checking service to verify your account. Avoid checking accounts on shared devices." data-ar="تُرسل بيانات الدخول إلى خدمة فحص الاشتراك للتحقق من حسابك. تجنب الفحص على الأجهزة المشتركة.">Your credentials are sent to the subscription-checking service to verify your account. Avoid checking accounts on shared devices.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .check-section { padding-top: 42px; padding-bottom: 70px; }
+  .check-card { width: min(100%, 530px); margin-inline: auto; padding: clamp(20px, 4vw, 36px); border: 1px solid rgba(98, 165, 241, .26); border-radius: 22px; background: linear-gradient(155deg, #112b4c 0%, #091a31 100%); box-shadow: 0 24px 65px rgba(0,0,0,.24), 0 0 30px rgba(0,121,255,.08); color: #fff; }
+  .check-card-head { text-align: center; margin-bottom: 27px; }
+  .check-icon { width: 60px; height: 60px; margin: 0 auto 15px; display: grid; place-items: center; border-radius: 17px; color: #fff; font-size: 30px; font-weight: 800; background: linear-gradient(135deg, #0f94fa, #0750a7); box-shadow: 0 9px 26px rgba(0,125,255,.28); }
+  .check-card h2 { color: #fff; margin: 0 0 10px; font-size: clamp(20px, 4.2vw, 27px); }
+  .check-card-head p { color: #bdcee4; font-size: 14px; line-height: 1.8; margin: 0; }
+  .check-form { display: flex; flex-direction: column; gap: 10px; }
+  .check-form label { font-size: 14px; font-weight: 700; color: #e5efff; text-align: start; }
+  .check-form input { box-sizing: border-box; display: block; width: 100%; min-width: 0; height: 51px; padding: 12px 15px; border: 1px solid #385779; border-radius: 11px; outline: none; background: #091b30; color: #fff; font: inherit; font-size: 16px; direction: ltr; text-align: left; }
+  .check-form input:focus { border-color: #27a0ff; box-shadow: 0 0 0 3px rgba(39,160,255,.16); }
+  .check-form input::placeholder { color: #8da6c4; }
+  .password-wrap { position: relative; }
+  .password-wrap input { padding-right: 52px; }
+  .show-password { position: absolute; right: 5px; top: 5px; width: 41px; height: 41px; border: 0; border-radius: 9px; background: transparent; color: #bcd4ef; cursor: pointer; font-size: 19px; }
+  .show-password:hover { background: #1a3b5d; }
+  .check-submit { width: 100%; min-height: 52px; margin-top: 12px; display: flex; justify-content: center; align-items: center; gap: 10px; border: 1px solid #269bff; border-radius: 11px; background: linear-gradient(115deg, #087fdf, #0755b7); color: #fff; font-weight: 800; font-size: 16px; cursor: pointer; }
+  .check-submit:disabled { opacity: .65; cursor: wait; }
+  .check-message { margin-top: 17px; border: 1px solid #b56c3b; background: rgba(130,67,25,.16); color: #ffe1c5; padding: 13px 15px; border-radius: 11px; font-size: 14px; line-height: 1.7; text-align: center; }
+  .check-result { margin-top: 19px; padding: 20px; border: 1px solid #2c5d84; border-radius: 14px; background: rgba(5,18,34,.65); }
+  .check-result.is-active { border-color: rgba(53,213,135,.5); }
+  .check-result.is-inactive { border-color: rgba(255,116,116,.5); }
+  .result-heading { display: flex; justify-content: center; align-items: center; gap: 9px; font-size: 19px; text-align: center; }
+  .is-active .result-heading { color: #52e8a3; }
+  .is-inactive .result-heading { color: #ff8a8a; }
+  .result-details { margin-top: 16px; display: grid; gap: 11px; }
+  .result-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(175,211,249,.12); padding-bottom: 10px; font-size: 14px; }
+  .result-row span { color: #bbcee7; }
+  .result-row strong { text-align: end; overflow-wrap: anywhere; }
+  .check-note { margin: 19px 0 0; text-align: center; font-size: 12px; line-height: 1.8; color: #aabdd5; }
+  [hidden] { display: none !important; }
+  @media (max-width: 600px) { .check-section { padding-top: 24px; } .check-card { border-radius: 16px; } .result-row { flex-wrap: wrap; } }
+</style>
+
+<script is:inline>
+(() => {
+  const API = 'https://check.mohammedalnajjar2211.workers.dev/';
+  const form = document.getElementById('subscription-check-form');
+  if (!form) return;
+  const user = document.getElementById('check-username');
+  const pass = document.getElementById('check-password');
+  const submit = document.getElementById('check-submit');
+  const message = document.getElementById('check-message');
+  const result = document.getElementById('check-result');
+  const statusEl = document.getElementById('result-status');
+  const symbol = document.getElementById('result-symbol');
+  const details = document.getElementById('result-details');
+  const lang = () => document.documentElement.dataset.lang === 'ar' ? 'ar' : 'en';
+  const tr = (en, ar) => lang() === 'ar' ? ar : en;
+  const setMessage = (text) => { message.textContent = text; message.hidden = !text; };
+  const makeRow = (label, value) => {
+    const row = document.createElement('div');
+    row.className = 'result-row';
+    const key = document.createElement('span');
+    const val = document.createElement('strong');
+    key.textContent = label;
+    val.textContent = value;
+    row.append(key, val);
+    return row;
+  };
+  const updatePlaceholders = () => {
+    document.querySelectorAll('[data-placeholder-en]').forEach(el => {
+      el.placeholder = el.dataset[`placeholder${lang() === 'ar' ? 'Ar' : 'En'}`];
+    });
+    document.querySelectorAll('[data-aria-en]').forEach(el => {
+      el.setAttribute('aria-label', el.dataset[`aria${lang() === 'ar' ? 'Ar' : 'En'}`]);
+    });
+  };
+  updatePlaceholders();
+  const observer = new MutationObserver(updatePlaceholders);
+  observer.observe(document.documentElement, {attributes:true, attributeFilter:['data-lang']});
+  document.getElementById('toggle-check-password').addEventListener('click', () => {
+    pass.type = pass.type === 'password' ? 'text' : 'password';
+  });
+  let last = null;
+  function render(data) {
+    const info = data?.user_info;
+    if (!info || typeof info !== 'object') {
+      result.hidden = false;
+      result.className = 'check-result is-inactive';
+      symbol.textContent = '✕';
+      statusEl.textContent = tr('Account not found or invalid credentials', 'الحساب غير موجود أو بيانات الدخول غير صحيحة');
+      details.replaceChildren();
+      return;
+    }
+    const active = String(info.status || '').toLowerCase() === 'active';
+    const trial = String(info.is_trial) === '1';
+    result.hidden = false;
+    result.className = `check-result ${active ? 'is-active' : 'is-inactive'}`;
+    symbol.textContent = active ? '✓' : '✕';
+    statusEl.textContent = active
+      ? tr(trial ? 'Active (Trial)' : 'Account Active', trial ? 'الحساب نشط (تجريبي)' : 'الحساب نشط')
+      : tr('Account Not Active', 'الحساب غير نشط');
+    details.replaceChildren();
+    if (!active) return;
+    const raw = info.exp_date;
+    const unlimited = String(raw).toLowerCase() === 'unlimited';
+    const epoch = Number(raw);
+    if (unlimited) {
+      details.append(makeRow(tr('Expiration date', 'تاريخ الانتهاء'), tr('Unlimited', 'غير محدود')));
+    } else if (raw != null && raw !== '' && Number.isFinite(epoch) && epoch > 0) {
+      const expiration = new Date(epoch * 1000);
+      if (!Number.isNaN(expiration.getTime())) {
+        const date = expiration.toLocaleString(lang() === 'ar' ? 'ar-IQ' : 'en-GB', {dateStyle:'medium', timeStyle:'short'});
+        const days = Math.max(0, Math.ceil((expiration.getTime() - Date.now()) / 86400000));
+        details.append(makeRow(tr('Expiration date', 'تاريخ الانتهاء'), date));
+        details.append(makeRow(tr('Days remaining', 'الأيام المتبقية'), String(days)));
+      }
+    }
+    if (data.package_name) details.append(makeRow(tr('Package', 'الباقة'), String(data.package_name)));
+  }
+  document.documentElement.addEventListener('click', (event) => {
+    if (event.target.closest('#lang-toggle') && last) queueMicrotask(() => render(last));
+  });
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const username = user.value.trim();
+    const password = pass.value.trim();
+    result.hidden = true;
+    last = null;
+    setMessage('');
+    if (!username || !password) {
+      setMessage(tr('Enter both username and password.', 'يرجى إدخال اسم المستخدم وكلمة المرور.'));
+      return;
+    }
+    submit.disabled = true;
+    submit.querySelector('span').textContent = tr('Checking…', 'جارٍ الفحص…');
+    try {
+      const url = new URL(API);
+      url.searchParams.set('user', username);
+      url.searchParams.set('pass', password);
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 16000);
+      let response;
+      try { response = await fetch(url.toString(), {signal:controller.signal, cache:'no-store'}); }
+      finally { clearTimeout(timeout); }
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      if (data?.error) throw new Error(String(data.error));
+      last = data;
+      render(data);
+    } catch (error) {
+      console.error('Subscription check failed:', error instanceof Error ? error.message : 'Unknown error');
+      setMessage(tr('Unable to check your subscription right now. Please try again later.', 'تعذر فحص الاشتراك حالياً. يرجى المحاولة لاحقاً.'));
+    } finally {
+      submit.disabled = false;
+      submit.querySelector('span').textContent = tr('Check Now', 'افحص الآن');
+    }
+  });
+})();
+</script>

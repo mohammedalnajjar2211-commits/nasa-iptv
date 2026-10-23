@@ -1,0 +1,1 @@
+GitHub Pages project-path fix: /nasa-iptv/. Upload contents of nasa-iptv-next folder to repository root. When connecting nasa-iptv.net later, remove /nasa-iptv prefix from internal links and set site and base accordingly.

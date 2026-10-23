@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nasa-iptv.net/sitemap.xml

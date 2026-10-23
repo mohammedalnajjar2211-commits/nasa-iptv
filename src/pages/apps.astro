@@ -102,6 +102,41 @@ const platformName = (p) => p === 'ios' ? 'iPhone / iPad' : p === 'windows' ? 'W
   @media(max-width:700px){.nasa-app-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.nasa-app-card{padding:10px;border-radius:13px}.app-heading h2{font-size:13px}.app-description{font-size:11px;min-height:58px}.app-tabs{gap:4px;padding:5px}.app-tab{font-size:clamp(9px,2.6vw,12px);padding:11px 3px}.app-actions{gap:5px}.app-copy,.app-download{font-size:10px}.qr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.app-list-item{flex-wrap:wrap;gap:8px}.app-list-item strong{min-width:0}.list-url{flex-basis:100%;order:3}.app-list-item .app-copy{margin-inline-start:auto}}
   @media(max-width:360px){.nasa-app-grid{grid-template-columns:1fr}.app-description{min-height:0}}
   @media(prefers-reduced-motion:reduce){.nasa-app-card{transition:none}.nasa-app-card:hover{transform:none}}
+
+
+/* NASA IPTV - Apps Hero Contrast Fix */
+
+.apps-hero {
+  background: linear-gradient(
+    115deg,
+    #092c58 0%,
+    #12549a 55%,
+    #267bc5 100%
+  ) !important;
+  border-radius: 20px;
+  padding: 38px 30px;
+}
+
+.apps-hero h1 {
+  color: #ffffff !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+}
+
+.apps-hero p {
+  color: #e0efff !important;
+}
+
+.apps-hero .eyebrow {
+  color: #8ecbff !important;
+}
+
+@media (max-width: 768px) {
+  .apps-hero {
+    padding: 26px 18px;
+    border-radius: 14px;
+  }
+}
+
 </style>
 
 <script>

@@ -1,5 +1,0 @@
-{
- "name":"nasa-iptv-next","version":"1.0.0","private":true,"type":"module",
- "scripts":{"dev":"astro dev --host 0.0.0.0","build":"astro build","preview":"astro preview"},
- "dependencies":{"astro":"^5.15.0"}
-}

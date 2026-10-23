@@ -105,35 +105,23 @@ const platformName = (p) => p === 'ios' ? 'iPhone / iPad' : p === 'windows' ? 'W
 
 
 /* NASA IPTV - Apps Hero Contrast Fix */
-
-.apps-hero {
-  background: linear-gradient(
-    115deg,
-    #092c58 0%,
-    #12549a 55%,
-    #267bc5 100%
-  ) !important;
-  border-radius: 20px;
-  padding: 38px 30px;
+.nasa-apps-hero {
+  background: linear-gradient(115deg, #092c58 0%, #12549a 55%, #267bc5 100%) !important;
 }
-
-.apps-hero h1 {
+.nasa-apps-hero .page-title {
   color: #ffffff !important;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .2);
 }
-
-.apps-hero p {
+.nasa-apps-hero p {
   color: #e0efff !important;
 }
-
-.apps-hero .eyebrow {
+.nasa-apps-hero .eyebrow {
   color: #8ecbff !important;
 }
-
 @media (max-width: 768px) {
-  .apps-hero {
-    padding: 26px 18px;
-    border-radius: 14px;
+  .nasa-apps-hero {
+    padding-top: 35px;
+    padding-bottom: 35px;
   }
 }
 

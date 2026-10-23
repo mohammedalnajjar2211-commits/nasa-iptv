@@ -1,4 +1,0 @@
----
-import Base from '../layouts/Base.astro';import ProductCard from '../components/ProductCard.astro';import {products} from '../data/products.js';
----
-<Base title="Player Activations | NASA IPTV"><section class="page-hero"><div class="container"><h1 class="page-title" data-en="Player activations" data-ar="تفعيل تطبيقات المشغلات">Player activations</h1><p data-en="Activate supported player apps. Licenses do not include IPTV content." data-ar="فعّل تطبيقات المشغلات المدعومة. التراخيص لا تشمل محتوى IPTV.">Activate supported player apps. Licenses do not include IPTV content.</p></div></section><section class="section"><div class="container"><div class="grid">{products.filter(p=>p.category==='activation').map(p=><ProductCard product={p}/>)}</div></div></section></Base>

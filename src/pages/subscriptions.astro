@@ -1,4 +1,0 @@
----
-import Base from '../layouts/Base.astro';import ProductCard from '../components/ProductCard.astro';import {products} from '../data/products.js';
----
-<Base title="Subscription Plans | NASA IPTV"><section class="page-hero"><div class="container"><h1 class="page-title" data-en="Subscription plans" data-ar="باقات الاشتراك">Subscription plans</h1><p data-en="Choose your preferred plan and order directly on WhatsApp." data-ar="اختر الباقة المناسبة وأرسل طلبك مباشرة عبر واتساب.">Choose your preferred plan and order directly on WhatsApp.</p></div></section><section class="section"><div class="container"><div class="grid">{products.filter(p=>p.category==='subscription').map(p=><ProductCard product={p}/>)}</div></div></section></Base>

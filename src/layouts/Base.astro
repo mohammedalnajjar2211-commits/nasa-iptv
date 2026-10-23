@@ -11,7 +11,16 @@ const path = Astro.url.pathname;
 <meta name="robots" content="index,follow,max-image-preview:large"/><meta property="og:site_name" content="NASA IPTV"/><meta name="twitter:card" content="summary_large_image"/><meta property="og:image" content={new URL("/nasa-iptv/images/nasa-logo-original.png",Astro.site).href}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/>
 <script is:inline>try{document.documentElement.dataset.lang=localStorage.getItem('nasa-lang')||'en'}catch(e){document.documentElement.dataset.lang='en'}</script>
 </head><body>
-<header class="header"><div class="container nav-wrap"><a href="/nasa-iptv/" class="brand" aria-label="NASA IPTV Home"><img class="brand-logo" src="/nasa-iptv/images/nasa-logo-original.png" width="114" height="61" alt="NASA IPTV" decoding="async"/><span class="brand-caption">STREAM SMARTER</span></a>
+<header class="header">
+<div class="nasa-weather-bar" id="nasa-weather-bar" hidden aria-label="Local weather">
+  <div class="container nasa-weather-inner">
+    <span class="nasa-weather-icon" id="nasa-weather-icon" aria-hidden="true">☀️</span>
+    <span class="nasa-weather-temp" id="nasa-weather-temp"></span>
+    <span class="nasa-weather-city" id="nasa-weather-city" dir="auto"></span>
+    <span class="nasa-weather-caption" data-en="Local weather" data-ar="طقس مدينتك">Local weather</span>
+  </div>
+</div>
+<div class="container nav-wrap"><a href="/nasa-iptv/" class="brand" aria-label="NASA IPTV Home"><img class="brand-logo" src="/nasa-iptv/images/nasa-logo-original.png" width="114" height="61" alt="NASA IPTV" decoding="async"/><span class="brand-caption">STREAM SMARTER</span></a>
 <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation" aria-controls="nav" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="nav" id="nav"><a href="/nasa-iptv/" data-en="Home" data-ar="الرئيسية">Home</a><a href="/nasa-iptv/shop/" data-en="Shop" data-ar="المتجر">Shop</a><a href="/nasa-iptv/subscriptions/" data-en="Subscriptions" data-ar="الاشتراكات">Subscriptions</a><a href="/nasa-iptv/activations/" data-en="Player Activations" data-ar="تفعيل المشغلات">Player Activations</a><a href="/nasa-iptv/apps/" data-en="Apps" data-ar="التطبيقات">Apps</a><a href="/nasa-iptv/help-center/" data-en="Support" data-ar="المساعدة">Support</a><a href="/nasa-iptv/reseller/" data-en="Reseller" data-ar="الوكلاء">Reseller</a><a href="/nasa-iptv/check-iptv/" data-en="Check IPTV" data-ar="افحص اشتراكك">Check IPTV</a></nav>
 <div class="nav-actions"><button class="lang-btn" id="lang-toggle" aria-label="Switch language"><span aria-hidden="true">🌐</span> <span class="lang-label">العربية</span> <span aria-hidden="true">⌄</span></button><a class="btn btn-small" href="https://wa.me/46700408208" target="_blank" rel="noopener"><span data-en="WhatsApp" data-ar="واتساب">WhatsApp</span> ↗</a></div></div></header>
@@ -24,6 +33,14 @@ const path = Astro.url.pathname;
 <a href="/nasa-iptv/check-iptv/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5m-13-10 2 2 4-4"/></svg><span data-en="Check IPTV" data-ar="افحص اشتراكك">Check IPTV</span></a>
 </nav>
 <a class="floating-wa" href="https://wa.me/46700408208" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp">✆</a>
+<style>
+/* Compact weather strip; outside nav-wrap so mobile logo/menu layout stays intact. */
+.nasa-weather-bar[hidden]{display:none!important}
+.nasa-weather-bar{background:linear-gradient(90deg,#07172d,#0b315b);border-bottom:1px solid rgba(120,185,245,.22);color:#e9f5ff}
+.nasa-weather-inner{min-height:30px;display:flex;align-items:center;justify-content:flex-end;gap:7px;font-size:12px;line-height:1.2;direction:ltr}
+.nasa-weather-icon{font-size:16px;line-height:1}.nasa-weather-temp{font-weight:800;font-variant-numeric:tabular-nums}.nasa-weather-city{font-weight:600;max-width:145px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.nasa-weather-caption{color:#a5c8ed;border-inline-start:1px solid #426184;padding-inline-start:8px;margin-inline-start:2px}
+@media(max-width:600px){.nasa-weather-inner{min-height:27px;font-size:11px;gap:5px}.nasa-weather-icon{font-size:14px}.nasa-weather-city{max-width:115px}.nasa-weather-caption{display:none}}
+</style>
 <script>
 const setLang=(lang)=>{document.documentElement.dataset.lang=lang;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-en][data-ar]').forEach(el=>{el.textContent=el.dataset[lang]});const btn=document.querySelector('#lang-toggle');if(btn)btn.querySelector('.lang-label').textContent=lang==='ar'?'English':'العربية';try{localStorage.setItem('nasa-lang',lang)}catch(e){}};
 setLang(document.documentElement.dataset.lang||'en');
@@ -33,5 +50,45 @@ document.querySelectorAll('.mobile-dock a').forEach(a=>{if(a.pathname===location
 const observer=new IntersectionObserver((entries)=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');observer.unobserve(entry.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{document.querySelector('#nav')?.classList.remove('open');document.querySelector('#menu-toggle')?.setAttribute('aria-expanded','false')}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelector('#nav')?.classList.remove('open');document.querySelector('#menu-toggle')?.setAttribute('aria-expanded','false')}});
+
+// Weather: approximate city from public IP; no GPS permission. Hide strip on network errors.
+(async () => {
+  const bar = document.querySelector('#nasa-weather-bar');
+  if (!bar) return;
+  const tempEl = document.querySelector('#nasa-weather-temp');
+  const cityEl = document.querySelector('#nasa-weather-city');
+  const iconEl = document.querySelector('#nasa-weather-icon');
+  const show = (item) => {
+    if (!item || !Number.isFinite(item.temp) || !item.city) return;
+    tempEl.textContent = `${Math.round(item.temp)}°C`;
+    cityEl.textContent = item.city;
+    const code = item.code;
+    iconEl.textContent = code === 0 ? '☀️' : [1,2].includes(code) ? '🌤️' : code === 3 ? '☁️' : [45,48].includes(code) ? '🌫️' : [51,53,55,56,57,61,63,65,66,67,80,81,82].includes(code) ? '🌧️' : [71,73,75,77,85,86].includes(code) ? '❄️' : [95,96,99].includes(code) ? '⛈️' : '🌡️';
+    bar.hidden = false;
+  };
+  try {
+    const cached = JSON.parse(sessionStorage.getItem('nasa-weather-v1') || 'null');
+    if (cached && Date.now() - cached.at < 20 * 60 * 1000) { show(cached); return; }
+  } catch (_) {}
+  const fetchJson = async (url) => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 7000);
+    try {
+      const res = await fetch(url, { signal: controller.signal, cache: 'no-store' });
+      if (!res.ok) throw new Error('Weather request failed');
+      return await res.json();
+    } finally { clearTimeout(timer); }
+  };
+  try {
+    const geo = await fetchJson('https://ipwho.is/');
+    if (geo.success === false || !geo.city || !Number.isFinite(Number(geo.latitude)) || !Number.isFinite(Number(geo.longitude))) return;
+    const lat = Number(geo.latitude), lon = Number(geo.longitude);
+    const weather = await fetchJson(`https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&current=temperature_2m,weather_code&timezone=auto`);
+    const item = { city: String(geo.city), temp: Number(weather.current?.temperature_2m), code: Number(weather.current?.weather_code), at: Date.now() };
+    if (!Number.isFinite(item.temp)) return;
+    show(item);
+    try { sessionStorage.setItem('nasa-weather-v1', JSON.stringify(item)); } catch (_) {}
+  } catch (_) { /* Weather is optional; never block the site. */ }
+})();
 </script>
 </body></html>

@@ -1,5 +1,153 @@
 ---
 import Base from '../layouts/Base.astro';
-const apps=[{name:'NASA Active Code',code:'207693',url:'https://aftv.news/207693'},{name:'NASA IPTV (Legacy)',code:'501028',url:'https://aftv.news/501028'},{name:'NASA Ultra',code:'346551',url:'https://aftv.news/346551'}];
+
+// EDIT HERE: Change each app's name, image, Downloader code and download URL.
+// Use images under public/images/apps/ and set image: 'images/apps/my-app.png'.
+const sharedImage = 'images/nasa-logo-original.png';
+const apps = [
+  { id:'nasa-iptv', name:'NASA IPTV', platform:'android', code:'', url:'', image:sharedImage, ar:'تطبيق ناسا لأجهزة أندرويد.', en:'NASA player for Android devices.' },
+  { id:'nasa-ultra', name:'NASA Ultra', platform:'android', code:'', url:'', image:sharedImage, ar:'مشغل ناسا الترا لأجهزة أندرويد والتلفزيون.', en:'NASA Ultra for Android and TV.' },
+  { id:'nasa-xc', name:'NASA XC', platform:'android', code:'', url:'', image:sharedImage, ar:'مشغل ناسا بواجهة سهلة وسريعة.', en:'NASA player with a simple interface.' },
+  { id:'nasa-tv', name:'NASA TV', platform:'android', code:'', url:'', image:sharedImage, ar:'تطبيق مخصص لأجهزة Android TV.', en:'App designed for Android TV.' },
+  { id:'nasa-player', name:'NASA Player', platform:'android', code:'', url:'', image:sharedImage, ar:'تطبيق لمشاهدة المحتوى على أندرويد.', en:'Media player for Android.' },
+  { id:'nasa-mobile', name:'NASA Mobile', platform:'android', code:'', url:'', image:sharedImage, ar:'تطبيق مخصص لهواتف أندرويد.', en:'Player for Android phones.' },
+  { id:'ios-player-1', name:'NASA iOS Player', platform:'ios', code:'', url:'', image:sharedImage, ar:'مشغل لأجهزة iPhone وiPad.', en:'Player for iPhone and iPad.' },
+  { id:'ios-player-2', name:'NASA iOS Plus', platform:'ios', code:'', url:'', image:sharedImage, ar:'مشغل إضافي لأجهزة Apple.', en:'Another player option for Apple devices.' },
+  { id:'windows-player-1', name:'NASA Windows Player', platform:'windows', code:'', url:'', image:sharedImage, ar:'مشغل ناسا لأجهزة ويندوز.', en:'NASA player for Windows computers.' },
+  { id:'windows-player-2', name:'NASA Windows Plus', platform:'windows', code:'', url:'', image:sharedImage, ar:'مشغل إضافي للكمبيوتر.', en:'Additional player for Windows PCs.' },
+];
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
+const platformName = (p) => p === 'ios' ? 'iPhone / iPad' : p === 'windows' ? 'Windows' : 'Android / Android TV';
 ---
-<Base title="Download Apps | NASA IPTV" description="NASA IPTV app downloads and Downloader codes."><section class="page-hero"><div class="container"><h1 class="page-title" data-en="Download apps" data-ar="تحميل التطبيقات">Download apps</h1><p data-en="Get app download links and Downloader codes for supported devices." data-ar="روابط تحميل التطبيقات وأكواد Downloader للأجهزة المدعومة.">Get app download links and Downloader codes for supported devices.</p></div></section><section class="section"><div class="container"><div class="notice" data-en="These download references are carried over from the existing site. Verify app versions and sources before installation." data-ar="هذه روابط من الموقع القديم. تأكد من الإصدار ومصدر التطبيق قبل التثبيت.">These download references are carried over from the existing site. Verify app versions and sources before installation.</div><div class="app-list" style="margin-top:22px">{apps.map(a=><article class="app-card"><span class="eyebrow">ANDROID / TV</span><h3>{a.name}</h3><p class="muted">Downloader code / كود التحميل</p><h2>{a.code}</h2><a class="btn" href={a.url} target="_blank" rel="noopener noreferrer" data-en="Open download link ↗" data-ar="فتح رابط التحميل ↗">Open download link ↗</a></article>)}</div><div class="section" style="padding-bottom:0"><h2 data-en="Other platforms" data-ar="منصات أخرى">Other platforms</h2><p class="muted" data-en="Need help choosing a compatible app for iOS, Android TV, Smart TV or Windows? Ask our support team before downloading." data-ar="تحتاج مساعدة لاختيار تطبيق مناسب للآيفون أو Android TV أو التلفزيون الذكي أو Windows؟ تواصل مع الدعم قبل التحميل.">Need help choosing a compatible app for iOS, Android TV, Smart TV or Windows? Ask our support team before downloading.</p><a class="btn btn-outline" href="https://wa.me/46700408208" data-en="Ask on WhatsApp" data-ar="اسأل عبر واتساب">Ask on WhatsApp</a></div></div></section></Base>
+<Base title="NASA IPTV | Download Apps" description="NASA IPTV apps for Android, iPhone and Windows, download links, Downloader codes and QR codes.">
+  <section class="page-hero nasa-apps-hero">
+    <div class="container">
+      <span class="eyebrow" data-en="NASA IPTV • APP CENTER" data-ar="ناسا IPTV • مركز التطبيقات">NASA IPTV • APP CENTER</span>
+      <h1 class="page-title" data-en="Download our apps" data-ar="تحميل تطبيقات ناسا">Download our apps</h1>
+      <p data-en="Choose your device, view Downloader codes, copy download links and scan QR codes." data-ar="اختر جهازك، واستعرض أكواد Downloader وروابط التحميل ورموز QR.">Choose your device, view Downloader codes, copy download links and scan QR codes.</p>
+      <div class="app-stats" aria-label="Available apps">
+        <span><b>6</b> Android</span><span><b>2</b> iPhone</span><span><b>2</b> Windows</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section nasa-apps-section">
+    <div class="container">
+      <div class="app-tabs" role="tablist" aria-label="App page sections">
+        <button type="button" class="app-tab active" role="tab" aria-selected="true" data-tab="apps" data-en="Applications" data-ar="التطبيقات">Applications</button>
+        <button type="button" class="app-tab" role="tab" aria-selected="false" data-tab="codes" data-en="Downloader codes" data-ar="أكواد التحميل">Downloader codes</button>
+        <button type="button" class="app-tab" role="tab" aria-selected="false" data-tab="links" data-en="Direct links" data-ar="روابط مباشرة">Direct links</button>
+        <button type="button" class="app-tab" role="tab" aria-selected="false" data-tab="qr" data-en="QR codes" data-ar="رموز QR">QR codes</button>
+      </div>
+      <div class="apps-info" data-en="Download links and codes are being prepared. You can add them later in the apps array at the top of this page." data-ar="روابط وأكواد التحميل قيد التجهيز. يمكنك إضافتها لاحقاً في قائمة apps أعلى ملف الصفحة.">Download links and codes are being prepared. You can add them later in the apps array at the top of this page.</div>
+
+      <div class="app-panel active" id="panel-apps" role="tabpanel">
+        <div class="app-filters" aria-label="Filter by platform">
+          <button type="button" class="app-filter active" data-filter="all" data-en="All (10)" data-ar="الكل (10)">All (10)</button>
+          <button type="button" class="app-filter" data-filter="android">Android (6)</button>
+          <button type="button" class="app-filter" data-filter="ios">iPhone (2)</button>
+          <button type="button" class="app-filter" data-filter="windows">Windows (2)</button>
+        </div>
+        <div class="nasa-app-grid">
+          {apps.map((app) => (
+            <article class="nasa-app-card" data-platform={app.platform}>
+              <div class="app-picture"><img src={asset(app.image)} alt={`${app.name} icon`} width="320" height="320" loading="lazy" /></div>
+              <div class="app-heading"><div><h2>{app.name}</h2><span class="app-platform">{platformName(app.platform)}</span></div><span class="app-os">{app.platform === 'ios' ? 'iOS' : app.platform === 'windows' ? 'PC' : 'APK'}</span></div>
+              <p class="app-description" data-en={app.en} data-ar={app.ar}>{app.en}</p>
+              <div class="app-code-line"><span data-en="Downloader code" data-ar="كود Downloader">Downloader code</span><strong>{app.code || '—'}</strong></div>
+              <div class="app-actions">
+                <button type="button" class="app-copy" data-copy={app.code} disabled={!app.code} data-en="Copy code" data-ar="نسخ الكود">Copy code</button>
+                {app.url ? <a class="app-download" href={app.url} target="_blank" rel="noopener noreferrer" data-en="Download ↗" data-ar="تحميل ↗">Download ↗</a> : <span class="app-download unavailable" data-en="Coming soon" data-ar="قريباً">Coming soon</span>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="app-panel" id="panel-codes" role="tabpanel" hidden>
+        <p class="panel-hint" data-en="Open Downloader on Android TV or Fire TV, enter the code, then press Go." data-ar="افتح تطبيق Downloader على Android TV أو Fire TV، ثم أدخل الكود واضغط Go.">Open Downloader on Android TV or Fire TV, enter the code, then press Go.</p>
+        <div class="app-list">
+          {apps.filter(a=>a.platform==='android').map(app=><div class="app-list-item"><img src={asset(app.image)} alt="" width="54" height="54" loading="lazy"/><strong>{app.name}</strong><span class="list-code">{app.code || '—'}</span><button type="button" class="app-copy" data-copy={app.code} disabled={!app.code} data-en="Copy" data-ar="نسخ">Copy</button></div>)}
+        </div>
+      </div>
+
+      <div class="app-panel" id="panel-links" role="tabpanel" hidden>
+        <p class="panel-hint" data-en="Copy a direct download link and open it on the target device." data-ar="انسخ رابط التحميل المباشر وافتحه على الجهاز المطلوب.">Copy a direct download link and open it on the target device.</p>
+        <div class="app-list">
+          {apps.map(app=><div class="app-list-item"><img src={asset(app.image)} alt="" width="54" height="54" loading="lazy"/><strong>{app.name}</strong><span class="list-url">{app.url || '—'}</span><button type="button" class="app-copy" data-copy={app.url} disabled={!app.url} data-en="Copy link" data-ar="نسخ الرابط">Copy link</button></div>)}
+        </div>
+      </div>
+
+      <div class="app-panel" id="panel-qr" role="tabpanel" hidden>
+        <p class="panel-hint" data-en="Scan a QR code to open an app's download link. Codes appear after you add download URLs." data-ar="امسح رمز QR لفتح رابط التطبيق. تظهر الرموز بعد إضافة روابط التحميل.">Scan a QR code to open an app's download link. Codes appear after you add download URLs.</p>
+        <div class="qr-grid">
+          {apps.map(app=><div class="qr-card"><div class="qr-image" data-qr={app.url}></div><strong>{app.name}</strong><span>{platformName(app.platform)}</span></div>)}
+        </div>
+      </div>
+      <div id="apps-toast" class="apps-toast" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nasa-apps-hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 0%,rgba(16,126,233,.24),transparent 58%)}
+  .nasa-apps-hero .container{position:relative}.app-stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.app-stats span{border:1px solid rgba(82,161,241,.35);background:rgba(8,54,104,.4);padding:9px 15px;border-radius:999px;color:#e7f3ff;font-size:13px}.app-stats b{color:#56b8ff;margin-inline-end:5px}
+  .nasa-apps-section{padding-top:26px}.app-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:7px;border-radius:17px;border:1px solid rgba(91,150,216,.26);background:#0a182b}.app-tab{border:0;border-radius:11px;padding:14px 7px;background:transparent;color:#b5cce4;cursor:pointer;font:inherit;font-weight:700;font-size:13px}.app-tab.active{color:#fff;background:linear-gradient(135deg,#098de8,#084caa);box-shadow:0 6px 20px #007bff33}.app-tab:focus-visible,.app-filter:focus-visible,.app-copy:focus-visible{outline:2px solid #7bc6ff;outline-offset:2px}
+  .apps-info,.panel-hint{border:1px solid #24456c;border-radius:12px;background:#0d2239;padding:14px 17px;color:#c7dcf2;font-size:13px;line-height:1.8;margin:16px 0 20px}.app-panel[hidden]{display:none!important}.app-filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px}.app-filter{border:1px solid #335474;background:#101e30;color:#cbd9e9;border-radius:999px;padding:9px 16px;cursor:pointer;font:inherit;font-size:13px;font-weight:700}.app-filter.active{background:#eaf5ff;color:#062a51;border-color:#eaf5ff}
+  .nasa-app-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.nasa-app-card{min-width:0;padding:14px;border:1px solid #244565;border-radius:19px;background:linear-gradient(145deg,rgba(18,68,113,.52),rgba(7,23,42,.96));box-shadow:0 10px 32px #0003;transition:transform .2s,border-color .2s}.nasa-app-card:hover{transform:translateY(-3px);border-color:#168fe6}.nasa-app-card[hidden]{display:none!important}
+  .app-picture{width:100%;aspect-ratio:1;border:1px solid #315678;border-radius:14px;overflow:hidden;background:radial-gradient(circle,#123d66,#07172a);display:grid;place-items:center}.app-picture img{width:100%;height:100%;object-fit:contain;padding:15%;display:block}.app-heading{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-top:13px}.app-heading h2{font-size:16px;line-height:1.4;margin:0;color:#fff}.app-platform{font-size:11px;color:#7dc4ff}.app-os{border:1px solid #365b7f;border-radius:999px;padding:4px 9px;color:#b7d6f1;font-size:10px;white-space:nowrap}.app-description{font-size:12px;color:#b5c7d9;line-height:1.8;min-height:44px;margin:12px 0}.app-code-line{display:flex;justify-content:space-between;gap:8px;border-top:1px solid #254663;padding-top:11px;font-size:11px;color:#adc7de}.app-code-line strong{font-size:14px;color:#fff;direction:ltr}.app-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.app-copy,.app-download{display:flex;align-items:center;justify-content:center;text-align:center;min-height:39px;padding:8px;border-radius:9px;font:inherit;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}.app-copy{border:1px solid #335a80;background:#142b45;color:#e8f4ff}.app-download{border:1px solid #1387dd;background:linear-gradient(135deg,#0795f2,#0752af);color:#fff}.app-copy:disabled,.app-download.unavailable{opacity:.55;cursor:not-allowed}
+  .app-list{display:grid;gap:10px}.app-list-item{display:flex;align-items:center;gap:13px;padding:12px;border:1px solid #294765;border-radius:13px;background:#0b1b2f;min-width:0}.app-list-item img{width:54px;height:54px;object-fit:contain;background:#112b47;border-radius:9px;padding:7px}.app-list-item strong{font-size:13px;min-width:100px}.list-code{font-weight:800;letter-spacing:1px;direction:ltr}.list-url{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:start;font-size:12px;color:#b9d7ee}.app-list-item .app-copy{margin-inline-start:auto;min-width:76px}.qr-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.qr-card{border:1px solid #294765;border-radius:14px;background:#0b1b2f;padding:16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}.qr-image{width:min(100%,150px);aspect-ratio:1;background:#fff;border-radius:9px;display:grid;place-items:center;padding:7px;color:#435c75;font-size:11px}.qr-image img,.qr-image canvas{max-width:100%;max-height:100%}.qr-card strong{font-size:13px}.qr-card span{font-size:11px;color:#adc7de}.apps-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0a63b4;color:#fff;padding:10px 18px;border-radius:10px;z-index:200;display:none;box-shadow:0 8px 30px #0008}.apps-toast.show{display:block}
+  @media(max-width:1050px){.nasa-app-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.qr-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media(max-width:700px){.nasa-app-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.nasa-app-card{padding:10px;border-radius:13px}.app-heading h2{font-size:13px}.app-description{font-size:11px;min-height:58px}.app-tabs{gap:4px;padding:5px}.app-tab{font-size:clamp(9px,2.6vw,12px);padding:11px 3px}.app-actions{gap:5px}.app-copy,.app-download{font-size:10px}.qr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.app-list-item{flex-wrap:wrap;gap:8px}.app-list-item strong{min-width:0}.list-url{flex-basis:100%;order:3}.app-list-item .app-copy{margin-inline-start:auto}}
+  @media(max-width:360px){.nasa-app-grid{grid-template-columns:1fr}.app-description{min-height:0}}
+  @media(prefers-reduced-motion:reduce){.nasa-app-card{transition:none}.nasa-app-card:hover{transform:none}}
+</style>
+
+<script>
+  // The main site's language switch updates data-ar/data-en. These labels follow it.
+  const section = document.querySelector('.nasa-apps-section');
+  if (section) {
+    const tabs = [...section.querySelectorAll('.app-tab')];
+    const panels = [...section.querySelectorAll('.app-panel')];
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      tabs.forEach(t => { const active=t===tab; t.classList.toggle('active',active); t.setAttribute('aria-selected',String(active)); });
+      panels.forEach(p => { const active=p.id===`panel-${target}`; p.hidden=!active; p.classList.toggle('active',active); });
+    }));
+    const filters = [...section.querySelectorAll('.app-filter')];
+    filters.forEach(btn => btn.addEventListener('click', () => {
+      filters.forEach(b=>b.classList.toggle('active',b===btn));
+      section.querySelectorAll('.nasa-app-card').forEach(card => { card.hidden=btn.dataset.filter!=='all' && card.dataset.platform!==btn.dataset.filter; });
+    }));
+    let toastTimer;
+    const toast = section.querySelector('#apps-toast');
+    const currentLanguage = () => document.documentElement.lang?.toLowerCase().startsWith('ar') || document.documentElement.dir==='rtl' ? 'ar' : 'en';
+    section.querySelectorAll('.app-copy').forEach(button => button.addEventListener('click', async () => {
+      const value = button.dataset.copy;
+      if (!value) return;
+      try {
+        await navigator.clipboard.writeText(value);
+        toast.textContent = currentLanguage()==='ar' ? 'تم النسخ بنجاح ✓' : 'Copied successfully ✓';
+      } catch {
+        toast.textContent = currentLanguage()==='ar' ? 'تعذر النسخ، حاول يدوياً' : 'Copy failed. Please copy manually.';
+      }
+      toast.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>toast.classList.remove('show'),2400);
+    }));
+    // QR code generation requires a download URL. Load the library only if needed.
+    const qrNodes=[...section.querySelectorAll('.qr-image')];
+    const qrUrls=qrNodes.filter(n=>n.dataset.qr);
+    const emptyText = () => currentLanguage()==='ar' ? 'الرابط غير متوفر' : 'No link yet';
+    qrNodes.filter(n=>!n.dataset.qr).forEach(n=>n.textContent=emptyText());
+    if(qrUrls.length){
+      const script=document.createElement('script');
+      script.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+      script.onload=()=>{ qrUrls.forEach(n=>{ try { new window.QRCode(n,{text:n.dataset.qr,width:140,height:140,colorDark:'#061b31',colorLight:'#ffffff'}); } catch {n.textContent='QR unavailable';} }); };
+      script.onerror=()=>{qrUrls.forEach(n=>n.textContent='QR unavailable');};
+      document.head.appendChild(script);
+    }
+    // Keep untranslated fallback text synchronized if the user switches languages.
+    const observer=new MutationObserver(()=>{qrNodes.filter(n=>!n.dataset.qr).forEach(n=>n.textContent=emptyText());});
+    observer.observe(document.documentElement,{attributes:true,attributeFilter:['lang','dir']});
+  }
+</script>

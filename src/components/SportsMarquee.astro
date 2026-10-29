@@ -1,0 +1,51 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const leagues = [
+  {en:'Saudi Pro League', ar:'دوري روشن', short:'RSL', symbol:'⚽', image:'saudi-pro-league.png'},
+  {en:'UEFA Champions League', ar:'دوري أبطال أوروبا', short:'UCL', symbol:'★', image:'champions-league.png'},
+  {en:'Premier League', ar:'الدوري الإنجليزي', short:'PL', symbol:'♛', image:'premier-league.png'},
+  {en:'La Liga', ar:'الدوري الإسباني', short:'LIGA', symbol:'⚽', image:'la-liga.png'},
+  {en:'Serie A', ar:'الدوري الإيطالي', short:'A', symbol:'◆', image:'serie-a.png'},
+  {en:'Bundesliga', ar:'الدوري الألماني', short:'BL', symbol:'⚽', image:'bundesliga.png'},
+];
+const repeated = [...leagues, ...leagues, ...leagues, ...leagues];
+---
+<section class="nasa-sports" aria-labelledby="sports-title">
+  <div class="sports-heading">
+    <h2 id="sports-title"><span aria-hidden="true">⚽</span> <span data-en="Watch Your Favorite Leagues" data-ar="شاهد بطولاتك المفضلة">Watch Your Favorite Leagues</span></h2>
+    <p data-en="Enjoy live sports in high quality" data-ar="استمتع بمتابعة المباريات مباشرة بجودة عالية">Enjoy live sports in high quality</p>
+    <a class="sports-cta" href={`${base}subscriptions/`} data-en="Subscribe Now" data-ar="اشترك الآن واستمتع بالمشاهدة">Subscribe Now</a>
+  </div>
+  <div class="sports-window" aria-label="Featured football leagues">
+    <div class="sports-track">
+      {repeated.map((league, i) => (
+        <div class="sports-league" aria-hidden={i >= leagues.length ? 'true' : undefined}>
+          <div class="sports-crest">
+            <img src={`${base}images/leagues/${league.image}`} alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <span class="sports-fallback" style="display:none" aria-hidden="true">{league.short}</span>
+          </div>
+          <span class="sports-league-label" data-en={league.en} data-ar={league.ar}>{league.en}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+.nasa-sports{background:#030407;color:#fff;padding:44px 0 34px;overflow:hidden;text-align:center;isolation:isolate}
+.sports-heading{padding:0 16px 12px}
+.sports-heading h2{margin:0 0 10px;font-size:clamp(25px,3vw,37px);font-weight:800;line-height:1.4;color:#6de9f5;text-shadow:0 0 26px #00b7ed35}
+.sports-heading p{color:#a8b3c3;font-size:15px;margin:0 0 20px}
+.sports-cta{display:inline-flex;align-items:center;justify-content:center;background:#1acbe3;color:#00151d!important;text-decoration:none;border-radius:999px;min-height:46px;padding:10px 30px;font-size:14px;font-weight:800;transition:background .2s,transform .2s}
+.sports-cta:hover{background:#73eaff;transform:translateY(-2px)}
+.sports-window{width:100%;overflow:hidden;position:relative;margin-top:17px;direction:ltr;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.sports-track{display:flex;width:max-content;animation:sports-move 35s linear infinite;will-change:transform}
+.sports-window:hover .sports-track{animation-play-state:paused}
+.sports-league{width:148px;min-width:148px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:8px 12px}
+.sports-crest{height:62px;width:80px;display:flex;align-items:center;justify-content:center}
+.sports-crest img{height:58px;max-width:75px;width:auto;object-fit:contain;filter:drop-shadow(0 0 8px #ffffff60)}
+.sports-fallback{width:58px;height:58px;border:1px solid #426280;border-radius:16px;align-items:center;justify-content:center;color:#6de9f5;background:linear-gradient(145deg,#132742,#05090e);font-weight:900;font-size:16px;box-shadow:0 0 15px #36d8ff20}
+.sports-league-label{font-size:12px;line-height:1.4;color:#bec6d1;min-height:34px;max-width:130px}
+@keyframes sports-move{to{transform:translateX(-50%)}}
+@media(max-width:600px){.nasa-sports{padding:34px 0 27px}.sports-league{width:112px;min-width:112px;padding:6px}.sports-crest{height:53px}.sports-crest img{height:48px;max-width:65px}.sports-fallback{width:49px;height:49px;font-size:13px}.sports-league-label{font-size:11px;max-width:104px}.sports-track{animation-duration:29s}}
+@media(prefers-reduced-motion:reduce){.sports-track{animation:none}.sports-window{overflow-x:auto;mask-image:none;-webkit-mask-image:none}}
+</style>

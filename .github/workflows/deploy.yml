@@ -1,3 +1,4 @@
+
 name: Deploy NASA IPTV to GitHub Pages
 
 on:
@@ -18,29 +19,51 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
       - name: Build Astro website
         run: npm run build
+
+      - name: Verify SEO and build output
+        run: |
+          test -f dist/index.html
+          test -f dist/robots.txt
+          test -f dist/sitemap.xml
+          test -f dist/CNAME
+
+          grep -qx 'nasa-iptv.net' dist/CNAME
+
+          echo "Build and SEO files verified."
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
+
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: https://nasa-iptv.net
+
     steps:
       - name: Deploy website
         id: deployment

@@ -145,7 +145,7 @@ export const products = [
     ar:'تفعيل BOB Player لمدة سنة',
     price:10,
     months:12,
-    image:defaultProductImage,
+    image:'/images/products/bob-player-activation-12-months.png',
     description:'One-year player license. IPTV content not included.'
   },
   {
@@ -155,7 +155,7 @@ export const products = [
     ar:'تفعيل BOB Player مدى الحياة',
     price:20,
     lifetime:true,
-    image:defaultProductImage,
+    image:'/images/products/bob-player-activation-lifetime.png',
     description:'Lifetime player license, subject to provider terms. IPTV content not included.'
   }
     {

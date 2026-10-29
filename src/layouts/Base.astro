@@ -23,7 +23,12 @@ const path = Astro.url.pathname;
 <div class="container nav-wrap"><a href="/nasa-iptv/" class="brand" aria-label="NASA IPTV Home"><img class="brand-logo" src="/nasa-iptv/images/nasa-logo-original.png" width="114" height="61" alt="NASA IPTV" decoding="async"/><span class="brand-caption">STREAM SMARTER</span></a>
 <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation" aria-controls="nav" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="nav" id="nav"><a href="/nasa-iptv/" data-en="Home" data-ar="الرئيسية">Home</a><a href="/nasa-iptv/shop/" data-en="Shop" data-ar="المتجر">Shop</a><a href="/nasa-iptv/subscriptions/" data-en="Subscriptions" data-ar="الاشتراكات">Subscriptions</a><a href="/nasa-iptv/activations/" data-en="Player Activations" data-ar="تفعيل المشغلات">Player Activations</a><a href="/nasa-iptv/apps/" data-en="Apps" data-ar="التطبيقات">Apps</a><a href="/nasa-iptv/help-center/" data-en="Support" data-ar="المساعدة">Support</a><a href="/nasa-iptv/reseller/" data-en="Reseller" data-ar="الوكلاء">Reseller</a><a href="/nasa-iptv/check-iptv/" data-en="Check IPTV" data-ar="افحص اشتراكك">Check IPTV</a></nav>
-<div class="nav-actions"><button class="lang-btn" id="lang-toggle" aria-label="Switch language"><span aria-hidden="true">🌐</span> <span class="lang-label">العربية</span> <span aria-hidden="true">⌄</span></button><a class="btn btn-small" href="https://wa.me/46700408208" target="_blank" rel="noopener"><span data-en="WhatsApp" data-ar="واتساب">WhatsApp</span> ↗</a></div></div></header>
+<div class="nav-actions"><div class="nasa-language-picker" id="nasa-language-picker">
+<button type="button" class="lang-btn nasa-language-trigger" id="lang-toggle" aria-label="Select language" aria-haspopup="true" aria-expanded="false" aria-controls="nasa-language-menu"><span class="lang-flag" id="lang-current-flag" aria-hidden="true">🇺🇸</span><span class="lang-label">English</span><span class="lang-chevron" aria-hidden="true">⌄</span></button>
+<div class="nasa-language-menu" id="nasa-language-menu" hidden role="group" aria-label="Languages">
+<button type="button" class="nasa-language-option" data-select-lang="en" lang="en"><span aria-hidden="true">🇺🇸</span><span>English</span><span class="nasa-language-check" aria-hidden="true">✓</span></button>
+<button type="button" class="nasa-language-option" data-select-lang="ar" lang="ar"><span aria-hidden="true">🇸🇦</span><span>العربية</span><span class="nasa-language-check" aria-hidden="true">✓</span></button>
+</div></div><a class="btn btn-small" href="https://wa.me/46700408208" target="_blank" rel="noopener"><span data-en="WhatsApp" data-ar="واتساب">WhatsApp</span> ↗</a></div></div></header>
 <main><slot/></main>
 <footer class="footer"><div class="container footer-grid"><div class="footer-about"><a class="brand footer-brand" href="/nasa-iptv/"><img class="brand-logo" src="/nasa-iptv/images/nasa-logo-original.png" width="114" height="61" alt="NASA IPTV" loading="lazy"/></a><p data-en="Simple plans, convenient player activations and friendly assistance." data-ar="باقات واضحة وتفعيل للمشغلات ومساعدة في اختيار الأنسب.">Simple plans, convenient player activations and friendly assistance.</p></div><div><h3 data-en="Explore" data-ar="استكشف">Explore</h3><a href="/nasa-iptv/shop/">Shop / المتجر</a><a href="/nasa-iptv/apps/">Apps / التطبيقات</a><a href="/nasa-iptv/help-center/">Help / المساعدة</a><a href="/nasa-iptv/reseller/">Reseller / الوكلاء</a><a href="/nasa-iptv/check-iptv/">Check IPTV / فحص الاشتراك</a></div><div><h3 data-en="Information" data-ar="معلومات">Information</h3><a href="/nasa-iptv/policy/">Policies / السياسات</a><a href="/nasa-iptv/contact/">Contact / التواصل</a><a href="/nasa-iptv/sitemap.xml">Sitemap</a></div><div><h3 data-en="Contact" data-ar="تواصل معنا">Contact</h3><a href="https://wa.me/46700408208">+46 700 408 208</a><p data-en="Orders are arranged through WhatsApp; no payment is processed on this website." data-ar="تتم الطلبات عبر واتساب ولا تُعالج المدفوعات داخل هذا الموقع.">Orders are arranged through WhatsApp; no payment is processed on this website.</p></div></div><div class="container copyright">© {new Date().getFullYear()} NASA IPTV. All rights reserved.</div></footer>
 <nav class="mobile-dock" aria-label="Mobile quick navigation">
@@ -40,11 +45,42 @@ const path = Astro.url.pathname;
 .nasa-weather-inner{min-height:30px;display:flex;align-items:center;justify-content:flex-end;gap:7px;font-size:12px;line-height:1.2;direction:ltr}
 .nasa-weather-icon{font-size:16px;line-height:1}.nasa-weather-temp{font-weight:800;font-variant-numeric:tabular-nums}.nasa-weather-city{font-weight:600;max-width:145px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.nasa-weather-caption{color:#a5c8ed;border-inline-start:1px solid #426184;padding-inline-start:8px;margin-inline-start:2px}
 @media(max-width:600px){.nasa-weather-inner{min-height:27px;font-size:11px;gap:5px}.nasa-weather-icon{font-size:14px}.nasa-weather-city{max-width:115px}.nasa-weather-caption{display:none}}
+/* Language picker: English primary, Arabic secondary */
+.nasa-language-picker{position:relative;display:inline-flex;direction:ltr;z-index:90}
+.nasa-language-trigger{display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;cursor:pointer}
+.lang-flag{font-size:19px;line-height:1}.lang-chevron{font-size:13px;opacity:.75;transition:transform .2s}
+.nasa-language-trigger[aria-expanded="true"] .lang-chevron{transform:rotate(180deg)}
+.nasa-language-menu[hidden]{display:none!important}
+.nasa-language-menu{position:absolute;top:calc(100% + 9px);right:0;left:auto;min-width:155px;padding:7px;background:#10163d;border:1px solid rgba(127,155,235,.28);border-radius:10px;box-shadow:0 14px 35px rgba(0,0,0,.38);display:grid;gap:3px;direction:ltr}
+.nasa-language-option{appearance:none;border:0;background:transparent;color:#f6f8ff;width:100%;display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:6px;font:inherit;font-size:13px;text-align:left;cursor:pointer;white-space:nowrap}
+.nasa-language-option>span:first-child{font-size:19px;line-height:1}
+.nasa-language-option:hover,.nasa-language-option:focus-visible{background:#243368;outline:none}
+.nasa-language-option.is-selected{background:#1b2b61}
+.nasa-language-check{margin-left:auto;opacity:0;color:#a8d5ff}
+.nasa-language-option.is-selected .nasa-language-check{opacity:1}
+@media(max-width:600px){.nasa-language-trigger{gap:5px}.nasa-language-menu{min-width:145px}}
 </style>
 <script>
-const setLang=(lang)=>{document.documentElement.dataset.lang=lang;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-en][data-ar]').forEach(el=>{el.textContent=el.dataset[lang]});const btn=document.querySelector('#lang-toggle');if(btn)btn.querySelector('.lang-label').textContent=lang==='ar'?'English':'العربية';try{localStorage.setItem('nasa-lang',lang)}catch(e){}};
+const languagePicker=document.querySelector('#nasa-language-picker');
+const languageTrigger=document.querySelector('#lang-toggle');
+const languageMenu=document.querySelector('#nasa-language-menu');
+const closeLanguageMenu=()=>{if(languageMenu)languageMenu.hidden=true;if(languageTrigger)languageTrigger.setAttribute('aria-expanded','false')};
+const setLang=(lang)=>{
+  lang=lang==='ar'?'ar':'en';
+  document.documentElement.dataset.lang=lang;
+  document.documentElement.lang=lang;
+  document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+  document.querySelectorAll('[data-en][data-ar]').forEach(el=>{el.textContent=el.dataset[lang]});
+  if(languageTrigger){languageTrigger.querySelector('.lang-label').textContent=lang==='ar'?'العربية':'English';document.querySelector('#lang-current-flag').textContent=lang==='ar'?'🇸🇦':'🇺🇸'}
+  document.querySelectorAll('[data-select-lang]').forEach(el=>{const selected=el.dataset.selectLang===lang;el.classList.toggle('is-selected',selected);el.setAttribute('aria-pressed',String(selected))});
+  try{localStorage.setItem('nasa-lang',lang)}catch(e){}
+  closeLanguageMenu();
+};
 setLang(document.documentElement.dataset.lang||'en');
-document.querySelector('#lang-toggle')?.addEventListener('click',()=>setLang(document.documentElement.dataset.lang==='ar'?'en':'ar'));
+languageTrigger?.addEventListener('click',()=>{const opening=languageMenu.hidden;languageMenu.hidden=!opening;languageTrigger.setAttribute('aria-expanded',String(opening))});
+document.querySelectorAll('[data-select-lang]').forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.selectLang)));
+document.addEventListener('click',e=>{if(languagePicker&&!languagePicker.contains(e.target))closeLanguageMenu()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLanguageMenu()});
 document.querySelector('#menu-toggle')?.addEventListener('click',()=>{let nav=document.querySelector('#nav');nav.classList.toggle('open');document.querySelector('#menu-toggle').setAttribute('aria-expanded',nav.classList.contains('open')?'true':'false')});
 document.querySelectorAll('.mobile-dock a').forEach(a=>{if(a.pathname===location.pathname)a.classList.add('active')});
 const observer=new IntersectionObserver((entries)=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');observer.unobserve(entry.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));

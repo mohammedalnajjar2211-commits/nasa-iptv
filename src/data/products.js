@@ -11,7 +11,7 @@ export const products = [
     old:30,
     months:3,
     featured:false,
-    image:defaultProductImage,
+    image:'/images/products/nasa-iptv-product.png',
     description:'Flexible streaming subscription for supported devices.'
   },
   {
@@ -23,7 +23,7 @@ export const products = [
     old:40,
     months:6,
     featured:false,
-    image:defaultProductImage,
+    image:'/images/products/nasa-iptv-product.png',
     description:'A flexible six-month plan for your entertainment.'
   },
   {
@@ -35,7 +35,7 @@ export const products = [
     old:80,
     months:12,
     featured:true,
-    image:defaultProductImage,
+    image:'/images/products/nasa-iptv-product.png',
     description:'Our popular annual subscription plan.'
   },
   {
@@ -47,7 +47,7 @@ export const products = [
     old:120,
     months:24,
     featured:false,
-    image:defaultProductImage,
+    image:'/images/products/nasa-iptv-product.png',
     description:'A two-year plan with great value.'
   },
   {
@@ -59,7 +59,7 @@ export const products = [
     old:149.99,
     months:36,
     featured:false,
-    image:defaultProductImage,
+    image:'/images/products/nasa-iptv-product.png',
     description:'Long-term plan for three years.'
   },
   {
@@ -70,7 +70,7 @@ export const products = [
     price:69.99,
     old:120,
     months:12,
-    image:defaultProductImage,
+    image:'/images/products/nasa-iptv-product.png',
     description:'Annual plan for two devices.'
   },
   {

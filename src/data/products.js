@@ -51,6 +51,17 @@ export const products = [
     description:'Our popular annual subscription plan.'
   },
   {
+    slug:'12-months-family-two-devices',
+    category:'subscription',
+    name:'12 Months Family (Two Devices)',
+    ar:'اشتراك فاملي سنة لجهازين',
+    price:69.99,
+    old:120,
+    months:12,
+    image:'/images/products/nasa-iptv-product.png',
+    description:'Annual plan for two devices.'
+  },
+  {
     slug:'24-months-family',
     category:'subscription',
     name:'24 Months Family',
@@ -73,17 +84,6 @@ export const products = [
     featured:false,
     image:'/images/products/nasa-iptv-product.png',
     description:'Long-term plan for three years.'
-  },
-  {
-    slug:'12-months-family-two-devices',
-    category:'subscription',
-    name:'12 Months Family (Two Devices)',
-    ar:'اشتراك فاملي سنة لجهازين',
-    price:69.99,
-    old:120,
-    months:12,
-    image:'/images/products/nasa-iptv-product.png',
-    description:'Annual plan for two devices.'
   },
   {
     slug:'12-months-family-saudi',

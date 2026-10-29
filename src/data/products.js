@@ -38,6 +38,18 @@ export const products = [
     image:'/images/products/nasa-iptv-product.png',
     description:'Our popular annual subscription plan.'
   },
+    {
+    slug:'12-months-family',
+    category:'subscription',
+    name:'12 Months Adults',
+    ar:'اشتراك باقة الكبار 12 شهراً',
+    price:49.99,
+    old:80,
+    months:12,
+    featured:true,
+    image:'/images/products/nasa-iptv-adults-product.png',
+    description:'Our popular annual subscription plan.'
+  },
   {
     slug:'24-months-family',
     category:'subscription',

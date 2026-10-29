@@ -3,9 +3,9 @@ const defaultProductImage = '/images/nasa-logo-original.png';
 
 export const products = [
   {
-    slug:'3-months-family',
+    slug:'3-months-global',
     category:'subscription',
-    name:'3 Months Family',
+    name:'3 Months Global',
     ar:'اشتراك فاملي 3 أشهر',
     price:19.99,
     old:30,
@@ -15,9 +15,9 @@ export const products = [
     description:'Flexible streaming subscription for supported devices.'
   },
   {
-    slug:'6-months-family',
+    slug:'6-months-global',
     category:'subscription',
-    name:'6 Months Family',
+    name:'6 Months Global',
     ar:'اشتراك فاملي 6 أشهر',
     price:29.99,
     old:40,
@@ -27,9 +27,9 @@ export const products = [
     description:'A flexible six-month plan for your entertainment.'
   },
   {
-    slug:'12-months-family',
+    slug:'12-months-global',
     category:'subscription',
-    name:'12 Months Family',
+    name:'12 Months Global',
     ar:'اشتراك فاملي 12 شهراً',
     price:39.99,
     old:80,
@@ -51,9 +51,9 @@ export const products = [
     description:'Our popular annual subscription plan.'
   },
   {
-    slug:'12-months-family-two-devices',
+    slug:'12-months-global-two-devices',
     category:'subscription',
-    name:'12 Months Family (Two Devices)',
+    name:'12 Months Global (Two Devices)',
     ar:'اشتراك فاملي سنة لجهازين',
     price:74.99,
     old:120,
@@ -62,9 +62,9 @@ export const products = [
     description:'Annual plan for two devices.'
   },
   {
-    slug:'24-months-family',
+    slug:'24-months-global',
     category:'subscription',
-    name:'24 Months Family',
+    name:'24 Months Global',
     ar:'اشتراك فاملي 24 شهراً',
     price:74.99,
     old:120,
@@ -74,9 +74,9 @@ export const products = [
     description:'A two-year plan with great value.'
   },
   {
-    slug:'36-months-family',
+    slug:'36-months-global',
     category:'subscription',
-    name:'36 Months Family',
+    name:'36 Months Global',
     ar:'اشتراك فاملي 36 شهراً',
     price:99.99,
     old:149.99,
@@ -88,7 +88,7 @@ export const products = [
   {
     slug:'12-months-family-saudi',
     category:'subscription',
-    name:'12 Months Family – Saudi Arabia',
+    name:'12 Months – Saudi Arabia',
     ar:'اشتراك فاملي سنة – السعودية',
     price:25,
     months:12,
@@ -99,7 +99,7 @@ export const products = [
   {
     slug:'12-months-family-kuwait',
     category:'subscription',
-    name:'12 Months Family – Kuwait',
+    name:'12 Months – Kuwait',
     ar:'اشتراك فاملي سنة – الكويت',
     price:25,
     months:12,
@@ -110,7 +110,7 @@ export const products = [
   {
     slug:'12-months-family-iraq',
     category:'subscription',
-    name:'12 Months Family – Iraq',
+    name:'12 Months – Iraq',
     ar:'اشتراك فاملي سنة – العراق',
     price:25,
     months:12,

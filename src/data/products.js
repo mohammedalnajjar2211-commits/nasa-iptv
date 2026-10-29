@@ -157,7 +157,7 @@ export const products = [
     lifetime:true,
     image:'/images/products/bob-player-activation-lifetime.png',
     description:'Lifetime player license, subject to provider terms. IPTV content not included.'
-  }
+  },
     {
     slug:'ibo-player-activation-1-year',
     category:'activation',

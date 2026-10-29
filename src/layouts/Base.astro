@@ -24,20 +24,20 @@ const path = Astro.url.pathname;
 <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation" aria-controls="nav" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="nav" id="nav"><a href="/nasa-iptv/" data-en="Home" data-ar="الرئيسية">Home</a><a href="/nasa-iptv/shop/" data-en="Shop" data-ar="المتجر">Shop</a><a href="/nasa-iptv/subscriptions/" data-en="Subscriptions" data-ar="الاشتراكات">Subscriptions</a><a href="/nasa-iptv/activations/" data-en="Player Activations" data-ar="تفعيل المشغلات">Player Activations</a><a href="/nasa-iptv/apps/" data-en="Apps" data-ar="التطبيقات">Apps</a><a href="/nasa-iptv/help-center/" data-en="Support" data-ar="المساعدة">Support</a><a href="/nasa-iptv/reseller/" data-en="Reseller" data-ar="الوكلاء">Reseller</a><a href="/nasa-iptv/check-iptv/" data-en="Check IPTV" data-ar="افحص اشتراكك">Check IPTV</a></nav>
 <div class="nav-actions"><div class="nasa-language-picker" id="nasa-language-picker">
-<button type="button" class="lang-btn nasa-language-trigger" id="lang-toggle" aria-label="Select language" aria-haspopup="true" aria-expanded="false" aria-controls="nasa-language-menu"><span class="lang-flag" id="lang-current-flag" aria-hidden="true">🇺🇸</span><span class="lang-label">English</span><span class="lang-chevron" aria-hidden="true">⌄</span></button>
+<button type="button" class="lang-btn nasa-language-trigger" id="lang-toggle" aria-label="Select language" aria-haspopup="true" aria-expanded="false" aria-controls="nasa-language-menu"><span class="lang-label">English</span></button>
 <div class="nasa-language-menu" id="nasa-language-menu" hidden role="group" aria-label="Languages">
-<button type="button" class="nasa-language-option" data-select-lang="en" lang="en"><span aria-hidden="true">🇺🇸</span><span>English</span><span class="nasa-language-check" aria-hidden="true">✓</span></button>
-<button type="button" class="nasa-language-option" data-select-lang="ar" lang="ar"><span aria-hidden="true">🇸🇦</span><span>العربية</span><span class="nasa-language-check" aria-hidden="true">✓</span></button>
-</div></div><a class="btn btn-small" href="https://wa.me/46700408208" target="_blank" rel="noopener"><span data-en="WhatsApp" data-ar="واتساب">WhatsApp</span> ↗</a></div></div></header>
+<button type="button" class="nasa-language-option" data-select-lang="en" lang="en"><span>English</span><span class="nasa-language-check" aria-hidden="true">✓</span></button>
+<button type="button" class="nasa-language-option" data-select-lang="ar" lang="ar"><span>العربية</span><span class="nasa-language-check" aria-hidden="true">✓</span></button>
+</div></div><a class="btn btn-small" href="https://wa.me/46700411342" target="_blank" rel="noopener"><span data-en="WhatsApp" data-ar="واتساب">WhatsApp</span> ↗</a></div></div></header>
 <main><slot/></main>
-<footer class="footer"><div class="container footer-grid"><div class="footer-about"><a class="brand footer-brand" href="/nasa-iptv/"><img class="brand-logo" src="/nasa-iptv/images/nasa-logo-original.png" width="114" height="61" alt="NASA IPTV" loading="lazy"/></a><p data-en="Simple plans, convenient player activations and friendly assistance." data-ar="باقات واضحة وتفعيل للمشغلات ومساعدة في اختيار الأنسب.">Simple plans, convenient player activations and friendly assistance.</p></div><div><h3 data-en="Explore" data-ar="استكشف">Explore</h3><a href="/nasa-iptv/shop/">Shop / المتجر</a><a href="/nasa-iptv/apps/">Apps / التطبيقات</a><a href="/nasa-iptv/help-center/">Help / المساعدة</a><a href="/nasa-iptv/reseller/">Reseller / الوكلاء</a><a href="/nasa-iptv/check-iptv/">Check IPTV / فحص الاشتراك</a></div><div><h3 data-en="Information" data-ar="معلومات">Information</h3><a href="/nasa-iptv/policy/">Policies / السياسات</a><a href="/nasa-iptv/contact/">Contact / التواصل</a><a href="/nasa-iptv/sitemap.xml">Sitemap</a></div><div><h3 data-en="Contact" data-ar="تواصل معنا">Contact</h3><a href="https://wa.me/46700408208">+46 700 408 208</a><p data-en="Orders are arranged through WhatsApp; no payment is processed on this website." data-ar="تتم الطلبات عبر واتساب ولا تُعالج المدفوعات داخل هذا الموقع.">Orders are arranged through WhatsApp; no payment is processed on this website.</p></div></div><div class="container copyright">© {new Date().getFullYear()} NASA IPTV. All rights reserved.</div></footer>
+<footer class="footer"><div class="container footer-grid"><div class="footer-about"><a class="brand footer-brand" href="/nasa-iptv/"><img class="brand-logo" src="/nasa-iptv/images/nasa-logo-original.png" width="114" height="61" alt="NASA IPTV" loading="lazy"/></a><p data-en="Simple plans, convenient player activations and friendly assistance." data-ar="باقات واضحة وتفعيل للمشغلات ومساعدة في اختيار الأنسب.">Simple plans, convenient player activations and friendly assistance.</p></div><div><h3 data-en="Explore" data-ar="استكشف">Explore</h3><a href="/nasa-iptv/shop/">Shop / المتجر</a><a href="/nasa-iptv/apps/">Apps / التطبيقات</a><a href="/nasa-iptv/help-center/">Help / المساعدة</a><a href="/nasa-iptv/reseller/">Reseller / الوكلاء</a><a href="/nasa-iptv/check-iptv/">Check IPTV / فحص الاشتراك</a></div><div><h3 data-en="Information" data-ar="معلومات">Information</h3><a href="/nasa-iptv/policy/">Policies / السياسات</a><a href="/nasa-iptv/contact/">Contact / التواصل</a><a href="/nasa-iptv/sitemap.xml">Sitemap</a></div><div><h3 data-en="Contact" data-ar="تواصل معنا">Contact</h3><a href="https://wa.me/46700411342">+46 700 408 208</a><p data-en="Orders are arranged through WhatsApp; no payment is processed on this website." data-ar="تتم الطلبات عبر واتساب ولا تُعالج المدفوعات داخل هذا الموقع.">Orders are arranged through WhatsApp; no payment is processed on this website.</p></div></div><div class="container copyright">© {new Date().getFullYear()} NASA IPTV. All rights reserved.</div></footer>
 <nav class="mobile-dock" aria-label="Mobile quick navigation">
 <a href="/nasa-iptv/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 9-8 9 8v10h-6v-7H9v7H3z"/></svg><span data-en="Home" data-ar="الرئيسية">Home</span></a>
 <a href="/nasa-iptv/subscriptions/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h10M7 14h6"/></svg><span data-en="Plans" data-ar="الاشتراكات">Plans</span></a>
 <a href="/nasa-iptv/apps/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span data-en="Apps" data-ar="التطبيقات">Apps</span></a>
 <a href="/nasa-iptv/check-iptv/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5m-13-10 2 2 4-4"/></svg><span data-en="Check IPTV" data-ar="افحص اشتراكك">Check IPTV</span></a>
 </nav>
-<a class="floating-wa" href="https://wa.me/46700408208" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp">✆</a>
+<a class="floating-wa" href="https://wa.me/46700411342" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp">✆</a>
 <style>
 /* Compact weather strip; outside nav-wrap so mobile logo/menu layout stays intact. */
 .nasa-weather-bar[hidden]{display:none!important}
@@ -48,12 +48,9 @@ const path = Astro.url.pathname;
 /* Language picker: English primary, Arabic secondary */
 .nasa-language-picker{position:relative;display:inline-flex;direction:ltr;z-index:90}
 .nasa-language-trigger{display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;cursor:pointer}
-.lang-flag{font-size:19px;line-height:1}.lang-chevron{font-size:13px;opacity:.75;transition:transform .2s}
-.nasa-language-trigger[aria-expanded="true"] .lang-chevron{transform:rotate(180deg)}
 .nasa-language-menu[hidden]{display:none!important}
 .nasa-language-menu{position:absolute;top:calc(100% + 9px);right:0;left:auto;min-width:155px;padding:7px;background:#10163d;border:1px solid rgba(127,155,235,.28);border-radius:10px;box-shadow:0 14px 35px rgba(0,0,0,.38);display:grid;gap:3px;direction:ltr}
 .nasa-language-option{appearance:none;border:0;background:transparent;color:#f6f8ff;width:100%;display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:6px;font:inherit;font-size:13px;text-align:left;cursor:pointer;white-space:nowrap}
-.nasa-language-option>span:first-child{font-size:19px;line-height:1}
 .nasa-language-option:hover,.nasa-language-option:focus-visible{background:#243368;outline:none}
 .nasa-language-option.is-selected{background:#1b2b61}
 .nasa-language-check{margin-left:auto;opacity:0;color:#a8d5ff}
@@ -71,7 +68,7 @@ const setLang=(lang)=>{
   document.documentElement.lang=lang;
   document.documentElement.dir=lang==='ar'?'rtl':'ltr';
   document.querySelectorAll('[data-en][data-ar]').forEach(el=>{el.textContent=el.dataset[lang]});
-  if(languageTrigger){languageTrigger.querySelector('.lang-label').textContent=lang==='ar'?'العربية':'English';document.querySelector('#lang-current-flag').textContent=lang==='ar'?'🇸🇦':'🇺🇸'}
+  if(languageTrigger){languageTrigger.querySelector('.lang-label').textContent=lang==='ar'?'العربية':'English'}
   document.querySelectorAll('[data-select-lang]').forEach(el=>{const selected=el.dataset.selectLang===lang;el.classList.toggle('is-selected',selected);el.setAttribute('aria-pressed',String(selected))});
   try{localStorage.setItem('nasa-lang',lang)}catch(e){}
   closeLanguageMenu();

@@ -81,7 +81,7 @@ export const products = [
     price:25,
     months:12,
     region:'Saudi Arabia',
-    image:defaultProductImage,
+    image:'/images/products/nasa-12-months-ksa.png',
     description:'Regional offer for Saudi customers.'
   },
   {
@@ -92,7 +92,7 @@ export const products = [
     price:25,
     months:12,
     region:'Kuwait',
-    image:defaultProductImage,
+    image:'/images/products/nasa-12-months-kuwait.png',
     description:'Regional offer for Kuwait customers.'
   },
   {

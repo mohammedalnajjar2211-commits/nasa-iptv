@@ -39,7 +39,7 @@ export const products = [
     description:'Our popular annual subscription plan.'
   },
     {
-    slug:'12-months-family',
+    slug:'12-months-adults',
     category:'subscription',
     name:'12 Months Adults',
     ar:'اشتراك باقة الكبار 12 شهراً',

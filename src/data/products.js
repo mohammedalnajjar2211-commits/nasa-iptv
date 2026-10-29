@@ -103,7 +103,7 @@ export const products = [
     price:20,
     months:12,
     region:'Iraq',
-    image:'public/images/products/nasa-12-months-iraq.png',
+    image:'/public/images/products/nasa-12-months-iraq.png',
     description:'Regional offer for Iraq customers.'
   },
   {

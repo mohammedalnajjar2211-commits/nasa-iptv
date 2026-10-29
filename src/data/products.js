@@ -125,7 +125,7 @@ export const products = [
     ar:'تفعيل ORA Player لمدة سنة',
     price:10,
     months:12,
-    image:defaultProductImage,
+    image:'/images/products/ora-player-activation-12-months.png',
     description:'One-year activation license for the ORA Player application. IPTV content not included.'
   },
   {
@@ -135,7 +135,7 @@ export const products = [
     ar:'تفعيل ORA Player مدى الحياة',
     price:20,
     lifetime:true,
-    image:defaultProductImage,
+    image:'/images/products/ora-player-activation-lifetime.png',
     description:'Lifetime application activation license, subject to the provider’s terms. IPTV content not included.'
   },
   {

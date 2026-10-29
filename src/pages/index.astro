@@ -2,6 +2,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
+import SportsMarquee from '../components/SportsMarquee.astro';
 import { products, genericWhatsapp } from '../data/products.js';
 
 const featured = products
@@ -244,6 +245,8 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
       </div>
     </div>
   </section>
+
+  <SportsMarquee />
 
   <!-- Contact -->
   <section class="section">

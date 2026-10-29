@@ -5,13 +5,22 @@ import ProductCard from '../components/ProductCard.astro';
 import SportsMarquee from '../components/SportsMarquee.astro';
 import { products, genericWhatsapp } from '../data/products.js';
 
-const featured = products
-  .filter(p => p.featured || (p.category === 'activation' && p.slug.includes('ora')))
-  .slice(0, 4);
+
+const featuredSlugs = [
+  '6-months-family',
+  '12-months-family',
+  '24-months-family',
+  '36-months-family'
+];
+
+const featured = featuredSlugs
+  .map(slug => products.find(p => p.slug === slug))
+  .filter(Boolean);
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
 ---
+
 
 <Base
   title="NASA IPTV | Subscriptions, Apps & Player Activations"

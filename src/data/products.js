@@ -143,7 +143,7 @@ export const products = [
     category:'activation',
     name:'BOB Player – 1 Year Activation',
     ar:'تفعيل BOB Player لمدة سنة',
-    price:10,
+    price:15,
     months:12,
     image:'/images/products/bob-player-activation-12-months.png',
     description:'One-year player license. IPTV content not included.'
@@ -153,7 +153,7 @@ export const products = [
     category:'activation',
     name:'BOB Player – Lifetime Activation',
     ar:'تفعيل BOB Player مدى الحياة',
-    price:20,
+    price:25,
     lifetime:true,
     image:'/images/products/bob-player-activation-lifetime.png',
     description:'Lifetime player license, subject to provider terms. IPTV content not included.'
@@ -163,9 +163,9 @@ export const products = [
     category:'activation',
     name:'IBO Player – 1 Year Activation',
     ar:'تفعيل IBO Player لمدة سنة',
-    price:10,
+    price:15,
     months:12,
-    image:defaultProductImage,
+    image:'/images/products/ibo-player-activation-12-months.png',
     description:'One-year player license. IPTV content not included.'
   },
   {
@@ -173,9 +173,9 @@ export const products = [
     category:'activation',
     name:'IBO Player – Lifetime Activation',
     ar:'تفعيل IBO Player مدى الحياة',
-    price:20,
+    price:25,
     lifetime:true,
-    image:defaultProductImage,
+    image:'/images/products/ibo-player-activation-lifetime.png',
     description:'Lifetime player license, subject to provider terms. IPTV content not included.'
   }
 ];

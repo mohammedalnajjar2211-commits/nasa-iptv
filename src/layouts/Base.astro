@@ -1,4 +1,4 @@
----
+﻿---
 import '../styles/site.css';
 const {title='NASA IPTV | Streaming & Player Activations',description='Explore subscription plans, player activations, apps and support at NASA IPTV.',canonical=Astro.url.pathname}=Astro.props;
 const path = Astro.url.pathname;
@@ -56,6 +56,40 @@ const path = Astro.url.pathname;
 .nasa-language-check{margin-left:auto;opacity:0;color:#a8d5ff}
 .nasa-language-option.is-selected .nasa-language-check{opacity:1}
 @media(max-width:600px){.nasa-language-trigger{gap:5px}.nasa-language-menu{min-width:145px}}
+/* NASA IPTV — Mobile RTL language menu fix */
+@media (max-width: 600px) {
+  html, body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .nasa-language-picker {
+    position: relative;
+    direction: ltr;
+  }
+
+  .nasa-language-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: auto;
+    right: 0;
+    width: 155px;
+    min-width: 155px;
+    max-width: calc(100vw - 24px);
+    z-index: 9999;
+    direction: ltr;
+  }
+
+  html[dir="rtl"] .nasa-language-menu {
+    left: 0;
+    right: auto;
+  }
+
+  .nasa-language-option {
+    width: 100%;
+    text-align: start;
+  }
+}
 </style>
 <script>
 const languagePicker=document.querySelector('#nasa-language-picker');
@@ -126,3 +160,4 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelec
 </script>
 <script is:inline src="/nasa-analytics.js" defer></script>
 </body></html>
+

@@ -1,4 +1,4 @@
----
+﻿---
 import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
 import SportsMarquee from '../components/SportsMarquee.astro';
@@ -36,7 +36,7 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
       preload="none"
       aria-hidden="true"
     >
-      <source src={asset('videos/nasa-ambient.mp4')} type="video/mp4" />
+      <source src={asset('videos/nasa-ambient-optimized.mp4')} type="video/mp4" />
     </video>
 
     <div class="hero-shade"></div>
@@ -494,3 +494,4 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
   }
 
 </style>
+

@@ -108,7 +108,32 @@ const setLang=(lang)=>{
   closeLanguageMenu();
 };
 setLang(document.documentElement.dataset.lang||'en');
-languageTrigger?.addEventListener('click',()=>{const opening=languageMenu.hidden;languageMenu.hidden=!opening;languageTrigger.setAttribute('aria-expanded',String(opening))});
+function positionLanguageMenu() {
+  if (!languageMenu || languageMenu.hidden || !languageTrigger) return;
+
+  const rect = languageTrigger.getBoundingClientRect();
+  const width = Math.min(180, window.innerWidth - 24);
+  const left = Math.max(12, Math.min(rect.left, window.innerWidth - width - 12));
+
+  languageMenu.style.position = 'fixed';
+  languageMenu.style.width = width + 'px';
+  languageMenu.style.minWidth = '0';
+  languageMenu.style.maxWidth = 'none';
+  languageMenu.style.left = left + 'px';
+  languageMenu.style.right = 'auto';
+  languageMenu.style.top = (rect.bottom + 8) + 'px';
+  languageMenu.style.zIndex = '99999';
+}
+
+languageTrigger?.addEventListener('click', () => {
+  const opening = languageMenu.hidden;
+  languageMenu.hidden = !opening;
+  languageTrigger.setAttribute('aria-expanded', String(opening));
+  if (opening) positionLanguageMenu();
+});
+
+window.addEventListener('resize', positionLanguageMenu);
+window.addEventListener('scroll', positionLanguageMenu, true);
 document.querySelectorAll('[data-select-lang]').forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.selectLang)));
 document.addEventListener('click',e=>{if(languagePicker&&!languagePicker.contains(e.target))closeLanguageMenu()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLanguageMenu()});
@@ -160,4 +185,5 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelec
 </script>
 <script is:inline src="/nasa-analytics.js" defer></script>
 </body></html>
+
 

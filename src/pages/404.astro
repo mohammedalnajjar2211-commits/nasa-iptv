@@ -1,138 +1,250 @@
 
 ---
-const home = "/";
-const shop = "/shop/";
+import Base from '../layouts/Base.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex,follow" />
-  <title>404 - Page Not Found | NASA IPTV</title>
-  <style>
-    * { box-sizing: border-box; }
+<Base
+  title="404 - Page Not Found | NASA IPTV"
+  description="The requested page could not be found on NASA IPTV."
+>
+  <section class="nasa-error">
+    <div class="container">
+      <div class="error-panel">
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(
-        circle at top,
-        #251015 0%,
-        #090b10 55%,
-        #050609 100%
+        <div class="error-label">
+          <span class="error-dot"></span>
+          <span
+            data-en="PAGE NOT FOUND"
+            data-ar="الصفحة غير موجودة"
+          >PAGE NOT FOUND</span>
+        </div>
+
+        <h1 class="error-number">404</h1>
+
+        <h2
+          data-en="Oops! This page is missing."
+          data-ar="عذراً، لم نتمكن من العثور على الصفحة."
+        >
+          Oops! This page is missing.
+        </h2>
+
+        <p
+          class="error-description"
+          data-en="The page you requested may have been moved, deleted, or is no longer available. Explore NASA IPTV using the links below."
+          data-ar="ربما تم نقل الصفحة التي تبحث عنها أو حذفها أو لم تعد متوفرة. يمكنك متابعة تصفح موقع ناسا باستخدام الروابط أدناه."
+        >
+          The page you requested may have been moved, deleted,
+          or is no longer available. Explore NASA IPTV using
+          the links below.
+        </p>
+
+        <div class="error-actions">
+          <a href="/" class="error-btn primary">
+            <span data-en="Back to Home" data-ar="العودة للرئيسية">
+              Back to Home
+            </span>
+          </a>
+
+          <a href="/shop/" class="error-btn secondary">
+            <span data-en="Explore Our Shop" data-ar="تصفح المتجر">
+              Explore Our Shop
+            </span>
+          </a>
+        </div>
+
+        <div class="error-help">
+          <span
+            data-en="Need assistance?"
+            data-ar="هل تحتاج إلى مساعدة؟"
+          >Need assistance?</span>
+
+          <a href="/help-center/"
+             data-en="Visit Help Center"
+             data-ar="زيارة مركز المساعدة">
+            Visit Help Center
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nasa-error {
+    min-height: 65vh;
+    display: flex;
+    align-items: center;
+    padding: 85px 16px;
+    background:
+      radial-gradient(
+        ellipse at 50% 25%,
+        rgba(28, 87, 166, .18),
+        transparent 60%
+      ),
+      linear-gradient(
+        180deg,
+        #081c3b 0%,
+        #06152e 100%
       );
-      color: #fff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 24px;
+  }
+
+  .nasa-error .container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .error-panel {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 35px 15px;
+  }
+
+  .error-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 18px;
+    border: 1px solid rgba(126, 176, 255, .25);
+    background: rgba(33, 73, 136, .24);
+    border-radius: 30px;
+    color: #a9caff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .error-dot {
+    width: 8px;
+    height: 8px;
+    background: #ff4059;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #ff4059;
+  }
+
+  .error-number {
+    font-size: clamp(115px, 23vw, 215px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -8px;
+    margin: 20px 0;
+    background: linear-gradient(
+      135deg,
+      #ffffff 10%,
+      #7ab5ff 60%,
+      #3266c6 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 12px 30px rgba(36, 105, 220, .25));
+  }
+
+  .error-panel h2 {
+    color: #ffffff;
+    font-size: clamp(24px, 4vw, 35px);
+    font-weight: 800;
+    margin: 15px 0;
+  }
+
+  .error-description {
+    color: #b7c8e3;
+    font-size: 16px;
+    line-height: 1.9;
+    max-width: 570px;
+    margin: 20px auto 32px;
+  }
+
+  .error-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .error-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 14px 27px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: .2s ease;
+  }
+
+  .error-btn.primary {
+    background: linear-gradient(
+      135deg,
+      #2474e8,
+      #1451b4
+    );
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(20, 81, 180, .25);
+  }
+
+  .error-btn.secondary {
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(157, 190, 255, .25);
+    color: #fff;
+  }
+
+  .error-btn:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.12);
+  }
+
+  .error-help {
+    margin-top: 35px;
+    color: #a9bddb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .error-help a {
+    color: #8fc1ff;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .error-help a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .nasa-error {
+      min-height: 65vh;
+      padding: 45px 10px 75px;
     }
 
-    .container {
+    .error-panel {
+      padding: 20px 5px;
+    }
+
+    .error-number {
+      letter-spacing: -5px;
+    }
+
+    .error-description {
+      font-size: 14px;
+    }
+
+    .error-actions {
+      flex-direction: column;
+    }
+
+    .error-btn {
       width: 100%;
-      max-width: 620px;
+      max-width: 310px;
     }
-
-    .logo {
-      font-size: 26px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      margin-bottom: 30px;
-    }
-
-    .logo span { color: #ed243b; }
-
-    h1 {
-      font-size: clamp(110px, 24vw, 200px);
-      line-height: 1;
-      margin: 0;
-      color: #ed243b;
-      text-shadow: 0 0 60px #ed243b44;
-    }
-
-    h2 {
-      font-size: 28px;
-      margin: 18px 0;
-    }
-
-    p {
-      color: #aeb4bf;
-      line-height: 1.8;
-      font-size: 16px;
-    }
-
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 30px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 15px 24px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: .2s;
-    }
-
-    .primary {
-      background: #ed243b;
-      color: white;
-    }
-
-    .secondary {
-      background: #191d26;
-      border: 1px solid #343946;
-      color: white;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .arabic {
-      direction: rtl;
-      margin-top: 20px;
-    }
-  </style>
-</head>
-
-<body>
-  <main class="container">
-    <div class="logo">NASA <span>IPTV</span></div>
-
-    <h1>404</h1>
-    <h2>Page Not Found</h2>
-
-    <p>
-      Sorry, the page you're looking for doesn't exist
-      or has been moved.
-    </p>
-
-    <div class="arabic" lang="ar">
-      <h2>الصفحة غير موجودة</h2>
-      <p>
-        عذراً، الصفحة التي تبحث عنها غير موجودة
-        أو تم نقلها إلى عنوان آخر.
-      </p>
-    </div>
-
-    <div class="buttons">
-      <a class="btn primary" href={home}>
-        Back to Home | الرئيسية
-      </a>
-
-      <a class="btn secondary" href={shop}>
-        Browse Plans | الاشتراكات
-      </a>
-    </div>
-  </main>
-</body>
-</html>
+  }
+</style>

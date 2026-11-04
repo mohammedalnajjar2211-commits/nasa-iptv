@@ -1,5 +1,5 @@
 
-const defaultProductImage = '/images/nasa-logo-original.png';
+const defaultProductImage = '/images/nasa-logo-original.webp';
 
 export const products = [
   {
@@ -11,7 +11,7 @@ export const products = [
     old:30,
     months:3,
     featured:false,
-    image:'/images/products/nasa-iptv-product.png',
+    image:'/images/products/nasa-iptv-product.webp',
     description:'Flexible streaming subscription for supported devices.'
   },
   {
@@ -23,7 +23,7 @@ export const products = [
     old:40,
     months:6,
     featured:false,
-    image:'/images/products/nasa-iptv-product.png',
+    image:'/images/products/nasa-iptv-product.webp',
     description:'A flexible six-month plan for your entertainment.'
   },
   {
@@ -35,7 +35,7 @@ export const products = [
     old:80,
     months:12,
     featured:true,
-    image:'/images/products/nasa-iptv-product.png',
+    image:'/images/products/nasa-iptv-product.webp',
     description:'Our popular annual subscription plan.'
   },
     {
@@ -47,7 +47,7 @@ export const products = [
     old:100,
     months:12,
     featured:true,
-    image:'/images/products/nasa-iptv-adults-product.png',
+    image:'/images/products/nasa-iptv-adults-product.webp',
     description:'Our popular annual subscription plan.'
   },
   {
@@ -58,7 +58,7 @@ export const products = [
     price:74.99,
     old:120,
     months:12,
-    image:'/images/products/nasa-iptv-product.png',
+    image:'/images/products/nasa-iptv-product.webp',
     description:'Annual plan for two devices.'
   },
   {
@@ -70,7 +70,7 @@ export const products = [
     old:120,
     months:24,
     featured:false,
-    image:'/images/products/nasa-iptv-product.png',
+    image:'/images/products/nasa-iptv-product.webp',
     description:'A two-year plan with great value.'
   },
   {
@@ -82,7 +82,7 @@ export const products = [
     old:149.99,
     months:36,
     featured:false,
-    image:'/images/products/nasa-iptv-product.png',
+    image:'/images/products/nasa-iptv-product.webp',
     description:'Long-term plan for three years.'
   },
   {

@@ -1,0 +1,134 @@
+---
+import Base from '../layouts/Base.astro';
+
+const suggestions = [
+  { name: '12 Months Global IPTV', ar: 'اشتراك عالمي 12 شهر', href: '/product/12-months-global/', image: '/images/products/nasa-iptv-product.webp' },
+  { name: '12 Months Adults IPTV', ar: 'اشتراك البالغين 12 شهر', href: '/product/12-months-adults/', image: '/images/products/nasa-iptv-adults-product.webp' },
+  { name: 'Browse All Products', ar: 'تصفح جميع المنتجات', href: '/shop/', image: '/images/products/nasa-iptv-product.webp' },
+];
+---
+<Base title="M3U Converter | NASA IPTV" description="Convert Xtream Codes credentials to M3U playlist URLs and extract credentials from M3U URLs securely in your browser.">
+  <main class="converter-page" id="m3u-tool">
+    <section class="hero">
+      <div class="eyebrow" data-en="FREE IPTV TOOL" data-ar="أداة IPTV مجانية">FREE IPTV TOOL</div>
+      <h1 data-en="M3U Link Converter" data-ar="محول روابط M3U">M3U Link Converter</h1>
+      <p data-en="Convert a server URL, username and password into an M3U link — or extract them from an existing M3U link." data-ar="حوّل رابط السيرفر واسم المستخدم وكلمة المرور إلى رابط M3U كامل، أو استخرج البيانات من رابط M3U موجود.">Convert a server URL, username and password into an M3U link — or extract them from an existing M3U link.</p>
+      <div class="privacy" data-en="Private by design: conversion happens only in your browser." data-ar="خصوصيتك محفوظة: تتم عملية التحويل داخل متصفحك فقط.">Private by design: conversion happens only in your browser.</div>
+    </section>
+
+    <section class="tool-card" aria-label="M3U converter">
+      <div class="tabs" role="tablist">
+        <button type="button" id="tab-to" class="tab active" role="tab" aria-selected="true" aria-controls="panel-to" data-en="Xtream → M3U" data-ar="بيانات الدخول ← M3U">Xtream → M3U</button>
+        <button type="button" id="tab-from" class="tab" role="tab" aria-selected="false" aria-controls="panel-from" data-en="M3U → Xtream" data-ar="M3U ← بيانات الدخول">M3U → Xtream</button>
+      </div>
+      <div id="panel-to" role="tabpanel" aria-labelledby="tab-to">
+        <div class="field"><label for="server" data-en="Server URL" data-ar="رابط السيرفر">Server URL</label><input id="server" type="url" placeholder="https://example.com:8080" autocomplete="off" spellcheck="false" /></div>
+        <div class="field"><label for="username" data-en="Username" data-ar="اسم المستخدم">Username</label><input id="username" type="text" placeholder="username" autocomplete="off" spellcheck="false" /></div>
+        <div class="field"><label for="password" data-en="Password" data-ar="كلمة المرور">Password</label><div class="password-wrap"><input id="password" type="password" placeholder="password" autocomplete="off" spellcheck="false" /><button type="button" id="toggle-password" class="minor" aria-label="Show or hide password">◉</button></div></div>
+        <button class="primary" type="button" id="generate" data-en="Generate M3U Link" data-ar="إنشاء رابط M3U">Generate M3U Link</button>
+        <div id="to-result" class="result" hidden><label for="generated" data-en="Your M3U URL" data-ar="رابط M3U الناتج">Your M3U URL</label><textarea id="generated" rows="3" readonly dir="ltr"></textarea><button type="button" class="copy" data-copy="generated" data-en="Copy M3U Link" data-ar="نسخ رابط M3U">Copy M3U Link</button></div>
+      </div>
+      <div id="panel-from" role="tabpanel" aria-labelledby="tab-from" hidden>
+        <div class="field"><label for="m3u-input" data-en="M3U URL" data-ar="رابط M3U">M3U URL</label><textarea id="m3u-input" rows="4" dir="ltr" placeholder="https://example.com:8080/get.php?username=...&password=...&type=m3u_plus"></textarea></div>
+        <button type="button" class="primary" id="extract" data-en="Extract Login Details" data-ar="استخراج بيانات الدخول">Extract Login Details</button>
+        <div id="from-result" class="result" hidden>
+          <div class="field"><label for="extracted-server" data-en="Server URL" data-ar="رابط السيرفر">Server URL</label><div class="copy-row"><input id="extracted-server" readonly dir="ltr" /><button type="button" class="copy" data-copy="extracted-server" data-en="Copy" data-ar="نسخ">Copy</button></div></div>
+          <div class="field"><label for="extracted-user" data-en="Username" data-ar="اسم المستخدم">Username</label><div class="copy-row"><input id="extracted-user" readonly dir="ltr" /><button type="button" class="copy" data-copy="extracted-user" data-en="Copy" data-ar="نسخ">Copy</button></div></div>
+          <div class="field"><label for="extracted-pass" data-en="Password" data-ar="كلمة المرور">Password</label><div class="copy-row"><input id="extracted-pass" readonly dir="ltr" /><button type="button" class="copy" data-copy="extracted-pass" data-en="Copy" data-ar="نسخ">Copy</button></div></div>
+        </div>
+      </div>
+      <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="suggestions">
+      <div class="eyebrow" data-en="OUR COLLECTION" data-ar="مجموعتنا">OUR COLLECTION</div>
+      <h2 data-en="Recommended Products" data-ar="المنتجات المقترحة">Recommended Products</h2>
+      <div class="products">
+        {suggestions.map(item => <a class="product" href={item.href}>
+          <img src={item.image} alt={item.name} loading="lazy" width="400" height="400" />
+          <h3 data-en={item.name} data-ar={item.ar}>{item.name}</h3>
+          <span class="view" data-en="View Product →" data-ar="عرض المنتج ←">View Product →</span>
+        </a>)}
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .converter-page{--navy:#081c3b;--blue:#1686f5;--muted:#65758d;max-width:1160px;margin:auto;padding:58px 20px 90px;color:var(--navy);font-family:inherit}
+  .hero{text-align:center;max-width:780px;margin:0 auto 38px}.eyebrow{color:#1686f5;font-size:12px;letter-spacing:.18em;font-weight:800;margin-bottom:12px}.hero h1{font-size:clamp(34px,5vw,58px);line-height:1.12;margin:0 0 18px;font-weight:850}.hero p{font-size:clamp(15px,2vw,18px);color:#596b83;line-height:1.85;margin:0}.privacy{display:inline-block;margin-top:18px;padding:9px 16px;border-radius:100px;background:#eaf5ff;color:#155b96;font-size:13px;font-weight:600}
+  .tool-card{max-width:760px;margin:0 auto;padding:clamp(18px,4vw,36px);border:1px solid #dce8f5;border-radius:24px;background:#fff;box-shadow:0 18px 60px rgba(8,28,59,.1)}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#eef4fb;padding:6px;border-radius:15px;margin-bottom:26px}.tab{border:0;border-radius:11px;padding:14px 10px;background:transparent;color:#536780;font:inherit;font-size:14px;font-weight:750;cursor:pointer}.tab.active{background:#081c3b;color:white;box-shadow:0 5px 15px #081c3b2a}.field{margin-bottom:18px}.field label,.result>label{display:block;font-size:14px;font-weight:750;margin-bottom:8px}.field input,.field textarea,.result textarea{box-sizing:border-box;display:block;width:100%;border:1px solid #cfdcec;background:#f8fbff;border-radius:12px;padding:14px 15px;color:#102748;font:inherit;font-size:15px;outline:none;resize:vertical;min-width:0}.field input:focus,.field textarea:focus,.result textarea:focus{border-color:#1686f5;box-shadow:0 0 0 3px #1686f51c}.password-wrap,.copy-row{display:flex;gap:8px}.password-wrap input,.copy-row input{flex:1}.minor{border:1px solid #d2dfef;background:#edf4fc;border-radius:12px;min-width:48px;cursor:pointer}.primary{width:100%;border:0;border-radius:12px;background:#081c3b;color:white;padding:16px;font:inherit;font-weight:800;cursor:pointer}.primary:hover{background:#1268b8}.result{margin-top:24px;padding:18px;background:#f1f7ff;border:1px solid #d8e8fa;border-radius:15px}.result textarea{margin-bottom:12px}.copy{background:#1686f5;color:white;border:0;border-radius:10px;padding:11px 16px;font:inherit;font-size:13px;font-weight:750;cursor:pointer;white-space:nowrap}.copy:hover{background:#0b64c3}.result .field:last-child{margin-bottom:0}.feedback{min-height:20px;text-align:center;font-size:13px;color:#b34343;margin:15px 0 0}
+  .suggestions{margin-top:95px;text-align:center}.suggestions h2{font-size:clamp(25px,4vw,38px);margin:0 0 28px}.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.product{display:block;text-align:start;background:white;border:1px solid #dce8f5;border-radius:19px;overflow:hidden;text-decoration:none;color:#081c3b;box-shadow:0 10px 30px #081c3b0a;transition:transform .2s}.product:hover{transform:translateY(-4px)}.product img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:#e9f2fa}.product h3{font-size:17px;line-height:1.4;margin:18px 17px 9px}.product .view{display:block;color:#1686f5;font-size:13px;font-weight:750;margin:0 17px 20px}
+  @media(max-width:680px){.converter-page{padding-top:35px}.products{grid-template-columns:1fr 1fr;gap:12px}.product h3{font-size:14px;margin:12px 12px 8px}.product .view{margin:0 12px 15px;font-size:12px}.suggestions{margin-top:65px}.tab{font-size:12px;padding:12px 6px}}@media(max-width:400px){.products{grid-template-columns:1fr}}
+</style>
+
+<script>
+  const $ = (id: string) => document.getElementById(id) as HTMLElement;
+  const input = (id: string) => $(id) as HTMLInputElement | HTMLTextAreaElement;
+  const feedback = $('feedback');
+  const isArabic = () => document.documentElement.lang.toLowerCase().startsWith('ar') || document.documentElement.dir === 'rtl';
+  const message = (en: string, ar: string) => { feedback.textContent = isArabic() ? ar : en; };
+  function switchTab(to: boolean) {
+    $('panel-to').hidden = !to;
+    $('panel-from').hidden = to;
+    $('tab-to').classList.toggle('active', to);
+    $('tab-from').classList.toggle('active', !to);
+    $('tab-to').setAttribute('aria-selected', String(to));
+    $('tab-from').setAttribute('aria-selected', String(!to));
+    feedback.textContent = '';
+  }
+  $('tab-to').addEventListener('click', () => switchTab(true));
+  $('tab-from').addEventListener('click', () => switchTab(false));
+  $('toggle-password').addEventListener('click', () => { const el = input('password'); el.type = el.type === 'password' ? 'text' : 'password'; });
+  function parseServer(raw: string): URL {
+    const trimmed = raw.trim();
+    if (!trimmed) throw new Error('missing');
+    const url = new URL(trimmed);
+    if (!['http:', 'https:'].includes(url.protocol) || !url.hostname || url.username || url.password || url.search || url.hash) throw new Error('invalid');
+    return url;
+  }
+  $('generate').addEventListener('click', () => {
+    try {
+      const server = parseServer(input('server').value);
+      const username = input('username').value.trim();
+      const password = input('password').value.trim();
+      if (!username || !password) throw new Error('missing');
+      const base = server.origin + server.pathname.replace(/\/+$/, '');
+      const url = new URL(base + '/get.php');
+      url.searchParams.set('username', username);
+      url.searchParams.set('password', password);
+      url.searchParams.set('type', 'm3u_plus');
+      url.searchParams.set('output', 'ts');
+      input('generated').value = url.toString();
+      $('to-result').hidden = false;
+      message('', '');
+    } catch {
+      $('to-result').hidden = true;
+      message('Enter a valid server URL (including http:// or https://), username and password.', 'أدخل رابط سيرفر صحيحاً يبدأ بـ http:// أو https:// مع اسم المستخدم وكلمة المرور.');
+    }
+  });
+  $('extract').addEventListener('click', () => {
+    try {
+      const url = new URL(input('m3u-input').value.trim());
+      if (!['http:', 'https:'].includes(url.protocol) || !/\/get\.php$/i.test(url.pathname) || url.username || url.password) throw new Error('invalid');
+      const username = url.searchParams.get('username');
+      const password = url.searchParams.get('password');
+      if (!username || !password) throw new Error('missing');
+      input('extracted-server').value = url.origin + url.pathname.replace(/\/get\.php$/i, '').replace(/\/$/, '');
+      input('extracted-user').value = username;
+      input('extracted-pass').value = password;
+      $('from-result').hidden = false;
+      message('', '');
+    } catch {
+      $('from-result').hidden = true;
+      message('Enter a valid Xtream-style M3U URL containing get.php, username and password.', 'أدخل رابط M3U صحيحاً يحتوي على get.php واسم المستخدم وكلمة المرور.');
+    }
+  });
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(button => button.addEventListener('click', async () => {
+    const id = button.dataset.copy;
+    if (!id) return;
+    const value = input(id).value;
+    try { await navigator.clipboard.writeText(value); message('Copied to clipboard.', 'تم النسخ إلى الحافظة.'); }
+    catch { input(id).focus(); input(id).select(); message('Select and copy the highlighted text.', 'انسخ النص المحدد يدوياً.'); }
+  }));
+</script>

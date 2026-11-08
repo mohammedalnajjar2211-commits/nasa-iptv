@@ -109,7 +109,7 @@ const API = 'https://nasa-tmdb-api.mohammedalnajjar2211.workers.dev/api/trending
   }
 
   .latest-track.is-ready {
-    animation: latest-scroll 90s linear infinite;
+    animation: latest-scroll 120s linear infinite;
   }
 
   .latest-viewport:hover .latest-track {
@@ -177,6 +177,89 @@ const API = 'https://nasa-tmdb-api.mohammedalnajjar2211.workers.dev/api/trending
     .latest-track.is-ready { animation: none; }
     .latest-viewport { overflow-x: auto; }
   }
+
+/* NASA compact entertainment carousel */
+.latest-entertainment {
+  padding-top: 18px !important;
+  padding-bottom: 16px !important;
+}
+
+.latest-heading {
+  margin-bottom: 12px !important;
+}
+
+.latest-heading h2 {
+  font-size: clamp(20px, 2.2vw, 27px) !important;
+  margin: 5px 0 !important;
+}
+
+.latest-heading .muted {
+  margin: 4px 0 !important;
+}
+
+.latest-categories {
+  margin-top: 9px !important;
+  gap: 7px !important;
+}
+
+.latest-categories span {
+  padding: 5px 11px !important;
+}
+
+.latest-track {
+  padding: 4px 0 6px !important;
+}
+
+.latest-poster {
+  width: 110px !important;
+  flex: 0 0 110px !important;
+}
+
+.latest-poster img {
+  aspect-ratio: 2 / 3 !important;
+}
+
+.latest-poster-info {
+  padding: 6px !important;
+}
+
+.latest-poster-title {
+  min-height: 0 !important;
+  font-size: 11px !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.latest-poster-meta {
+  margin-top: 3px !important;
+}
+
+.latest-attribution {
+  margin-top: 5px !important;
+}
+
+@media (max-width: 700px) {
+  .latest-entertainment {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+
+  .latest-heading {
+    margin-bottom: 8px !important;
+  }
+
+  .latest-poster {
+    width: 85px !important;
+    flex: 0 0 85px !important;
+  }
+
+  .latest-poster-info {
+    padding: 5px !important;
+  }
+}
+
 </style>
 
 <script define:vars={{ API }}>

@@ -1,615 +1,649 @@
 
 ---
-const apiUrl = "https://nasa-matches-api.mohammedalnajjar2211.workers.dev";
+import Base from '../../layouts/Base.astro';
+
+const apiUrl = 'https://nasa-matches-api.mohammedalnajjar2211.workers.dev';
 ---
 
-<!doctype html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<Base
+  title="Football Matches & Scores | NASA IPTV"
+  description="Explore football fixtures, scores and match times from leagues worldwide. Automatically displayed in your local time zone."
+  canonical="/matches/"
+>
+  <section class="matches-page">
+    <div class="container">
+      <div class="matches-hero">
+        <div class="matches-eyebrow">NASA IPTV · FOOTBALL CENTER</div>
+        <h1 data-en="Football Matches & Scores" data-ar="مباريات كرة القدم والنتائج">
+          Football Matches & Scores
+        </h1>
+        <p
+          data-en="Explore football fixtures, results and scores from leagues worldwide."
+          data-ar="تابع مواعيد مباريات كرة القدم والنتائج من مختلف البطولات العالمية."
+        >
+          Explore football fixtures, results and scores from leagues worldwide.
+        </p>
+      </div>
 
-  <title>Today's Football Matches & Live Scores | NASA IPTV</title>
-  <meta name="description" content="Explore today's football matches, live scores, fixtures, results and kickoff times across international football leagues on NASA IPTV." />
-  <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://nasa-iptv.net/matches/" />
-  <meta name="theme-color" content="#090c15" />
+      <div class="matches-toolbar">
+        <div class="matches-days" role="group" aria-label="Match day">
+          <button type="button" data-match-day="yesterday" data-en="Yesterday" data-ar="أمس">Yesterday</button>
+          <button type="button" data-match-day="today" class="active" data-en="Today" data-ar="اليوم">Today</button>
+          <button type="button" data-match-day="tomorrow" data-en="Tomorrow" data-ar="غداً">Tomorrow</button>
+        </div>
 
-  <link rel="preconnect" href="https://media.api-sports.io" crossorigin />
+        <input
+          id="matches-search"
+          type="search"
+          placeholder="Search teams or leagues..."
+          aria-label="Search teams or leagues"
+        />
+      </div>
+
+      <div class="matches-timebar">
+        <div class="matches-time-label">
+          <span aria-hidden="true">◷</span>
+          <span id="matches-time-description"></span>
+        </div>
+
+        <select id="matches-timezone" aria-label="Match time zone">
+          <option value="local">Local time</option>
+          <option value="Asia/Baghdad">Baghdad (UTC+3)</option>
+        </select>
+      </div>
+
+      <div class="matches-meta">
+        <span id="matches-count"></span>
+        <span id="matches-updated"></span>
+      </div>
+
+      <div id="matches-content" aria-live="polite">
+        <div class="matches-state">Loading matches...</div>
+      </div>
+    </div>
+  </section>
 
   <style>
-    :root {
-      color-scheme: dark;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #090c15;
-      color: #f5f6fa;
+    .matches-page {
+      padding: 35px 0 75px;
+      min-height: 65vh;
     }
 
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(ellipse at 50% -10%, #25315a 0%, transparent 50%),
-        #090c15;
-    }
-
-    button, input { font: inherit; }
-
-    button { cursor: pointer; }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(1120px, calc(100% - 32px));
-      margin-inline: auto;
-    }
-
-    .header {
-      border-bottom: 1px solid #ffffff13;
-      background: #0b0e19e8;
-    }
-
-    .header-inner {
-      min-height: 76px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .brand {
-      font-size: 21px;
-      font-weight: 900;
-      letter-spacing: 1px;
-    }
-
-    .brand span { color: #ff3b49; }
-
-    .header-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .header-link, .language-button {
-      padding: 10px 14px;
-      border: 1px solid #ffffff20;
-      border-radius: 10px;
-      background: #151a2a;
-      color: white;
-      font-size: 13px;
-    }
-
-    .language-button { font-weight: 700; }
-
-    .hero {
-      padding: 58px 0 32px;
+    .matches-hero {
       text-align: center;
+      padding: 25px 0 38px;
     }
 
-    .eyebrow {
-      color: #ff5360;
+    .matches-eyebrow {
+      color: #ff5365;
       font-size: 12px;
-      letter-spacing: 2px;
       font-weight: 800;
-      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
     }
 
-    h1 {
-      font-size: clamp(29px, 5vw, 49px);
-      line-height: 1.15;
-      margin: 15px 0;
-      letter-spacing: -1.3px;
+    .matches-hero h1 {
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.2;
+      margin: 0 0 14px;
     }
 
-    .hero p {
+    .matches-hero p {
       max-width: 650px;
-      margin: auto;
-      color: #a4aec5;
+      margin: 0 auto;
+      color: #aebdd4;
       line-height: 1.8;
-      font-size: 15px;
     }
 
-    .toolbar {
+    .matches-toolbar {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 14px;
-      margin: 18px 0 22px;
+      margin-bottom: 16px;
     }
 
-    .days {
+    .matches-days {
       display: flex;
-      gap: 7px;
+      gap: 5px;
       padding: 5px;
-      border: 1px solid #ffffff15;
-      background: #111624;
-      border-radius: 13px;
-    }
-
-    .day {
-      border: 0;
-      background: transparent;
-      color: #a7afc3;
-      padding: 12px 19px;
-      border-radius: 9px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .day.active {
-      color: #fff;
-      background: #e62e42;
-      box-shadow: 0 4px 18px #e62e4238;
-    }
-
-    .search {
-      width: min(320px, 100%);
-      background: #141a29;
-      border: 1px solid #ffffff1c;
       border-radius: 12px;
+      background: #101b35;
+      border: 1px solid #ffffff1a;
+    }
+
+    .matches-days button {
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 8px;
+      color: #b6c7e2;
+      background: transparent;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .matches-days button.active {
+      background: #e83149;
       color: white;
-      padding: 14px 16px;
+    }
+
+    #matches-search {
+      width: min(330px, 100%);
+      background: #101b35;
+      border: 1px solid #ffffff24;
+      color: white;
+      border-radius: 10px;
+      padding: 13px 15px;
       outline: none;
     }
 
-    .search:focus { border-color: #e62e42; }
+    #matches-search:focus {
+      border-color: #ff5266;
+    }
 
-    .info {
+    .matches-timebar {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      gap: 12px;
       flex-wrap: wrap;
+      gap: 12px;
+      background: #102447;
+      border: 1px solid #31517d;
+      border-radius: 11px;
+      padding: 12px 16px;
       margin-bottom: 17px;
-      color: #9ca6bc;
+    }
+
+    .matches-time-label {
+      color: #d6e6ff;
       font-size: 13px;
     }
 
-    .live-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ff4052;
-      box-shadow: 0 0 12px #ff4052;
-      margin-inline-end: 5px;
+    #matches-timezone {
+      background: #0a1730;
+      color: #fff;
+      border: 1px solid #42608a;
+      border-radius: 8px;
+      padding: 9px 12px;
     }
 
-    .league {
-      border: 1px solid #ffffff14;
-      border-radius: 15px;
-      background: #111625;
+    .matches-meta {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: #a8b9d2;
+      font-size: 13px;
       margin-bottom: 17px;
+    }
+
+    .matches-state {
+      text-align: center;
+      background: #101b35;
+      border: 1px solid #ffffff1a;
+      border-radius: 14px;
+      padding: 38px 18px;
+      color: #bdcbe0;
+    }
+
+    .matches-retry {
+      margin-top: 15px;
+      border: 0;
+      background: #e83149;
+      color: white;
+      padding: 11px 19px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* Dynamic match elements created by JavaScript */
+    :global(.nasa-match-league) {
+      background: #101b35;
+      border: 1px solid #ffffff1c;
+      border-radius: 14px;
+      margin-bottom: 16px;
       overflow: hidden;
     }
 
-    .league-head {
+    :global(.nasa-match-league-head) {
       display: flex;
       align-items: center;
-      gap: 11px;
-      background: #192033;
-      border-bottom: 1px solid #ffffff10;
-      padding: 15px 19px;
+      gap: 12px;
+      padding: 13px 17px;
+      background: #182c50;
+      border-bottom: 1px solid #ffffff14;
     }
 
-    .league-logo {
-      width: 31px;
-      height: 31px;
+    :global(.nasa-match-league-logo) {
+      width: 30px !important;
+      height: 30px !important;
+      max-width: 30px !important;
+      max-height: 30px !important;
       object-fit: contain;
+      flex: 0 0 30px;
     }
 
-    .league-name {
+    :global(.nasa-match-league-name) {
       font-weight: 800;
       font-size: 14px;
+      color: #fff;
     }
 
-    .league-country {
-      color: #929eb7;
+    :global(.nasa-match-league-country) {
       font-size: 11px;
-      margin-top: 4px;
+      color: #a4b7d2;
+      margin-top: 3px;
     }
 
-    .match {
+    :global(.nasa-match-row) {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 115px minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr) 120px minmax(0, 1fr);
       align-items: center;
-      gap: 10px;
-      padding: 18px 22px;
-      border-bottom: 1px solid #ffffff0e;
+      gap: 12px;
+      padding: 15px 20px;
+      border-bottom: 1px solid #ffffff10;
     }
 
-    .match:last-child { border-bottom: 0; }
+    :global(.nasa-match-row:last-child) {
+      border-bottom: 0;
+    }
 
-    .team {
+    :global(.nasa-match-team) {
       display: flex;
       align-items: center;
       gap: 11px;
       min-width: 0;
     }
 
-    .team.home { justify-content: flex-end; }
-    .team.away { justify-content: flex-start; }
+    :global(.nasa-match-home) {
+      justify-content: flex-end;
+    }
 
-    .team-name {
-      font-size: 13px;
+    :global(.nasa-match-away) {
+      justify-content: flex-start;
+    }
+
+    :global(.nasa-match-team-name) {
+      color: #f4f7ff;
       font-weight: 700;
+      font-size: 13px;
       overflow-wrap: anywhere;
     }
 
-    .team.home .team-name { text-align: end; }
-
-    .team-logo {
-      width: 37px;
-      height: 37px;
-      object-fit: contain;
-      flex-shrink: 0;
+    :global(.nasa-match-home .nasa-match-team-name) {
+      text-align: end;
     }
 
-    .score-box { text-align: center; }
+    :global(.nasa-match-team-logo) {
+      width: 34px !important;
+      height: 34px !important;
+      max-width: 34px !important;
+      max-height: 34px !important;
+      object-fit: contain;
+      flex: 0 0 34px;
+    }
 
-    .score {
-      font-size: 21px;
+    :global(.nasa-match-center) {
+      text-align: center;
+      min-width: 0;
+    }
+
+    :global(.nasa-match-score) {
+      font-size: 20px;
       font-weight: 900;
-      letter-spacing: 1px;
+      color: #fff;
       white-space: nowrap;
     }
 
-    .status {
-      font-size: 10px;
-      margin-top: 6px;
-      color: #9ba6bf;
+    :global(.nasa-match-status) {
+      font-size: 11px;
+      color: #a9bad3;
+      margin-top: 5px;
+      line-height: 1.4;
     }
 
-    .status.live {
-      color: #ff5868;
+    :global(.nasa-match-status.is-live) {
+      color: #ff5266;
       font-weight: 800;
     }
 
-    .state {
-      text-align: center;
-      border: 1px solid #ffffff16;
-      background: #121827;
-      padding: 42px 20px;
-      border-radius: 15px;
-      color: #abb5c9;
-      line-height: 1.8;
-    }
-
-    .state strong {
-      color: white;
-      display: block;
-      margin-bottom: 7px;
-    }
-
-    .retry {
-      margin-top: 15px;
-      padding: 11px 20px;
-      border-radius: 9px;
-      background: #e62e42;
-      border: 0;
-      color: white;
-      font-weight: 700;
-    }
-
-    .footer {
-      margin-top: 60px;
-      border-top: 1px solid #ffffff12;
-      padding: 30px 0;
-      color: #8c97ad;
-      text-align: center;
-      font-size: 12px;
-    }
-
-    [hidden] { display: none !important; }
-
     @media (max-width: 650px) {
-      .header-inner { min-height: 65px; }
-      .brand { font-size: 17px; }
-      .header-link { padding: 9px; font-size: 11px; }
-      .hero { padding: 37px 0 25px; }
-      .toolbar { flex-direction: column; align-items: stretch; }
-      .days { width: 100%; }
-      .day { flex: 1; padding: 12px 5px; }
-      .search { width: 100%; }
-      .match {
-        grid-template-columns: minmax(0, 1fr) 80px minmax(0, 1fr);
-        gap: 5px;
-        padding: 16px 9px;
+      .matches-page {
+        padding: 16px 0 45px;
       }
-      .team { gap: 5px; }
-      .team-logo { width: 27px; height: 27px; }
-      .team-name { font-size: 11px; }
-      .score { font-size: 17px; }
-      .league-head { padding: 12px; }
+
+      .matches-hero {
+        padding: 25px 0;
+      }
+
+      .matches-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .matches-days,
+      #matches-search {
+        width: 100%;
+      }
+
+      .matches-days button {
+        flex: 1;
+        padding: 11px 5px;
+        font-size: 12px;
+      }
+
+      .matches-timebar {
+        align-items: stretch;
+      }
+
+      #matches-timezone {
+        width: 100%;
+      }
+
+      :global(.nasa-match-row) {
+        grid-template-columns: minmax(0, 1fr) 78px minmax(0, 1fr);
+        gap: 5px;
+        padding: 13px 8px;
+      }
+
+      :global(.nasa-match-team) {
+        gap: 5px;
+      }
+
+      :global(.nasa-match-team-logo) {
+        width: 26px !important;
+        height: 26px !important;
+        max-width: 26px !important;
+        max-height: 26px !important;
+        flex-basis: 26px;
+      }
+
+      :global(.nasa-match-team-name) {
+        font-size: 11px;
+      }
+
+      :global(.nasa-match-score) {
+        font-size: 17px;
+      }
+
+      :global(.nasa-match-status) {
+        font-size: 10px;
+      }
     }
   </style>
-</head>
-
-<body>
-  <header class="header">
-    <div class="container header-inner">
-      <a class="brand" href="/">NASA <span>IPTV</span></a>
-
-      <div class="header-actions">
-        <a class="header-link" href="/" id="homeLink">Home</a>
-        <button class="language-button" id="langButton" type="button">العربية</button>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="hero">
-      <div class="eyebrow">NASA IPTV · FOOTBALL CENTER</div>
-      <h1 id="pageTitle">Football Matches & Live Scores</h1>
-      <p id="pageSubtitle">
-        Follow fixtures, match results and scores from football leagues worldwide.
-      </p>
-    </section>
-
-    <section aria-label="Football fixtures">
-      <div class="toolbar">
-        <div class="days" role="group" aria-label="Select match day">
-          <button class="day" data-day="yesterday" type="button" id="yesterdayButton">Yesterday</button>
-          <button class="day active" data-day="today" type="button" id="todayButton">Today</button>
-          <button class="day" data-day="tomorrow" type="button" id="tomorrowButton">Tomorrow</button>
-        </div>
-
-        <input
-          class="search"
-          type="search"
-          id="search"
-          placeholder="Search teams or leagues..."
-          aria-label="Search matches"
-        />
-      </div>
-
-      <div class="info">
-        <span id="matchCount">Loading matches...</span>
-        <span id="lastUpdated"></span>
-      </div>
-
-      <div id="matches" aria-live="polite">
-        <div class="state">Loading football matches...</div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      © {new Date().getFullYear()} NASA IPTV · Football Match Center
-    </div>
-  </footer>
 
   <script define:vars={{ apiUrl }}>
-    const translations = {
+    const content = document.getElementById('matches-content');
+    const count = document.getElementById('matches-count');
+    const updated = document.getElementById('matches-updated');
+    const search = document.getElementById('matches-search');
+    const zoneSelect = document.getElementById('matches-timezone');
+    const timeDescription = document.getElementById('matches-time-description');
+
+    const localZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+
+    const language = () =>
+      document.documentElement.dataset.lang === 'ar' ? 'ar' : 'en';
+
+    const words = {
       en: {
-        title: "Football Matches & Live Scores",
-        subtitle: "Follow fixtures, match results and scores from football leagues worldwide.",
-        yesterday: "Yesterday",
-        today: "Today",
-        tomorrow: "Tomorrow",
-        search: "Search teams or leagues...",
-        loading: "Loading football matches...",
-        unavailable: "Matches are temporarily unavailable.",
-        empty: "No matches found.",
-        retry: "Try again",
-        matches: "matches",
-        updated: "Last updated",
-        home: "Home",
-        live: "LIVE",
-        finished: "Full time",
-        upcoming: "Upcoming",
-        postponed: "Postponed",
-        cancelled: "Cancelled",
-        halftime: "Half time",
-        timezone: "Baghdad time",
-        notReady: "Match data is being prepared. Please check back shortly."
+        loading: 'Loading matches...',
+        empty: 'No matches found.',
+        unavailable: 'Match data is temporarily unavailable.',
+        retry: 'Try again',
+        search: 'Search teams or leagues...',
+        matches: 'matches',
+        updated: 'Last updated',
+        local: 'Local time',
+        baghdad: 'Baghdad time (UTC+3)',
+        using: 'Match times shown in',
+        finished: 'Full time',
+        halftime: 'Half time',
+        live: 'LIVE',
+        postponed: 'Postponed',
+        cancelled: 'Cancelled',
+        upcoming: 'Upcoming'
       },
       ar: {
-        title: "مباريات اليوم والنتائج المباشرة",
-        subtitle: "تابع مواعيد مباريات كرة القدم والنتائج والبطولات العالمية في مكان واحد.",
-        yesterday: "أمس",
-        today: "اليوم",
-        tomorrow: "غداً",
-        search: "ابحث عن فريق أو بطولة...",
-        loading: "جارٍ تحميل المباريات...",
-        unavailable: "المباريات غير متاحة مؤقتاً.",
-        empty: "لا توجد مباريات مطابقة.",
-        retry: "إعادة المحاولة",
-        matches: "مباراة",
-        updated: "آخر تحديث",
-        home: "الرئيسية",
-        live: "مباشر",
-        finished: "انتهت",
-        upcoming: "لم تبدأ",
-        postponed: "مؤجلة",
-        cancelled: "ملغاة",
-        halftime: "استراحة",
-        timezone: "بتوقيت بغداد",
-        notReady: "يجري تجهيز بيانات المباريات، يرجى المحاولة بعد قليل."
+        loading: 'جارٍ تحميل المباريات...',
+        empty: 'لا توجد مباريات مطابقة.',
+        unavailable: 'بيانات المباريات غير متاحة مؤقتاً.',
+        retry: 'إعادة المحاولة',
+        search: 'ابحث عن فريق أو بطولة...',
+        matches: 'مباراة',
+        updated: 'آخر تحديث',
+        local: 'توقيت جهازك',
+        baghdad: 'توقيت بغداد (UTC+3)',
+        using: 'تُعرض مواعيد المباريات حسب',
+        finished: 'انتهت المباراة',
+        halftime: 'استراحة',
+        live: 'مباشر',
+        postponed: 'مؤجلة',
+        cancelled: 'ملغاة',
+        upcoming: 'لم تبدأ'
       }
     };
 
-    const priorityLeagues = new Map([
-      [2, 1],
-      [3, 2],
-      [39, 3],
-      [140, 4],
-      [135, 5],
-      [78, 6],
-      [61, 7],
-      [307, 8],
+    const t = key => words[language()][key] || key;
+
+    const priority = new Map([
+      [2, 1], [3, 2], [39, 3], [140, 4],
+      [135, 5], [78, 6], [61, 7], [307, 8],
       [253, 9]
     ]);
 
-    const elements = {
-      title: document.getElementById("pageTitle"),
-      subtitle: document.getElementById("pageSubtitle"),
-      yesterday: document.getElementById("yesterdayButton"),
-      today: document.getElementById("todayButton"),
-      tomorrow: document.getElementById("tomorrowButton"),
-      search: document.getElementById("search"),
-      matches: document.getElementById("matches"),
-      count: document.getElementById("matchCount"),
-      updated: document.getElementById("lastUpdated"),
-      lang: document.getElementById("langButton"),
-      home: document.getElementById("homeLink")
-    };
-
-    let language = "en";
-    let selectedDay = "today";
-    let fixtures = [];
-    let lastUpdated = "";
-    let loading = false;
-    let requestId = 0;
-
     const liveStatuses = new Set([
-      "1H", "2H", "ET", "BT", "P", "LIVE", "INT"
+      '1H', '2H', 'ET', 'BT', 'P', 'LIVE', 'INT'
     ]);
 
-    const finishedStatuses = new Set([
-      "FT", "AET", "PEN"
-    ]);
+    const finishedStatuses = new Set(['FT', 'AET', 'PEN']);
 
-    function t(key) {
-      return translations[language][key] || key;
+    let day = 'today';
+    let fixtures = [];
+    let lastUpdated = '';
+    let requestNumber = 0;
+    let state = 'loading';
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, character => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[character]);
     }
 
-    function safe(value) {
-      return String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      })[char]);
+    function selectedZone() {
+      return zoneSelect.value === 'Asia/Baghdad'
+        ? 'Asia/Baghdad'
+        : localZone;
     }
 
-    function formatTime(dateString) {
-      if (!dateString) return "—";
+    function formatTime(value) {
+      if (!value) return '—';
 
-      const date = new Date(dateString);
-
-      if (Number.isNaN(date.getTime())) return "—";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return '—';
 
       return new Intl.DateTimeFormat(
-        language === "ar" ? "ar-IQ" : "en-GB",
+        language() === 'ar' ? 'ar-IQ' : 'en-GB',
         {
-          timeZone: "Asia/Baghdad",
-          hour: "2-digit",
-          minute: "2-digit",
+          timeZone: selectedZone(),
+          hour: '2-digit',
+          minute: '2-digit',
           hour12: true
         }
       ).format(date);
     }
 
-    function statusText(match) {
-      const status = match.status || "NS";
+    function localDate(offset = 0) {
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: selectedZone(),
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).formatToParts(new Date());
 
-      if (liveStatuses.has(status)) {
-        if (status === "P") return t("live");
+      const values = Object.fromEntries(
+        parts.map(part => [part.type, part.value])
+      );
 
-        return match.elapsed
-          ? `${match.elapsed}' · ${t("live")}`
-          : t("live");
-      }
-
-      if (status === "HT") return t("halftime");
-      if (finishedStatuses.has(status)) return t("finished");
-      if (status === "PST") return t("postponed");
-      if (status === "CANC") return t("cancelled");
-
-      return `${formatTime(match.date)} · ${t("timezone")}`;
+      return new Date(Date.UTC(
+        Number(values.year),
+        Number(values.month) - 1,
+        Number(values.day) + offset
+      )).toISOString().slice(0, 10);
     }
 
-    function matchHtml(match) {
+    function dateInZone(value) {
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) return '';
+
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: selectedZone(),
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).formatToParts(date);
+
+      const values = Object.fromEntries(
+        parts.map(part => [part.type, part.value])
+      );
+
+      return `${values.year}-${values.month}-${values.day}`;
+    }
+
+    function dayOffset() {
+      return day === 'yesterday' ? -1 : day === 'tomorrow' ? 1 : 0;
+    }
+
+    function matchStatus(match) {
+      if (liveStatuses.has(match.status)) {
+        return match.elapsed
+          ? `${match.elapsed}' · ${t('live')}`
+          : t('live');
+      }
+
+      if (match.status === 'HT') return t('halftime');
+      if (finishedStatuses.has(match.status)) return t('finished');
+      if (match.status === 'PST') return t('postponed');
+      if (match.status === 'CANC') return t('cancelled');
+
+      return formatTime(match.date);
+    }
+
+    function matchCard(match) {
       const home = match.home || {};
       const away = match.away || {};
 
-      const started =
-        liveStatuses.has(match.status) ||
+      const started = liveStatuses.has(match.status) ||
         finishedStatuses.has(match.status) ||
-        match.status === "HT";
+        match.status === 'HT';
 
       const score = started
-        ? `${home.goals ?? "–"} : ${away.goals ?? "–"}`
-        : "VS";
+        ? `${home.goals ?? '–'} - ${away.goals ?? '–'}`
+        : 'VS';
 
       const live = liveStatuses.has(match.status);
 
       return `
-        <div class="match">
-          <div class="team home">
-            <span class="team-name">${safe(home.name)}</span>
-            <img class="team-logo"
-              src="${safe(home.logo)}"
+        <div class="nasa-match-row">
+          <div class="nasa-match-team nasa-match-home">
+            <span class="nasa-match-team-name">${escapeHtml(home.name)}</span>
+            <img class="nasa-match-team-logo"
+              src="${escapeHtml(home.logo || '')}"
               alt=""
-              loading="lazy"
-              referrerpolicy="no-referrer">
+              loading="lazy">
           </div>
 
-          <div class="score-box">
-            <div class="score">${safe(score)}</div>
-            <div class="status ${live ? "live" : ""}">
-              ${live ? '<span class="live-dot"></span>' : ""}
-              ${safe(statusText(match))}
+          <div class="nasa-match-center">
+            <div class="nasa-match-score">${escapeHtml(score)}</div>
+            <div class="nasa-match-status ${live ? 'is-live' : ''}">
+              ${escapeHtml(matchStatus(match))}
             </div>
           </div>
 
-          <div class="team away">
-            <img class="team-logo"
-              src="${safe(away.logo)}"
+          <div class="nasa-match-team nasa-match-away">
+            <img class="nasa-match-team-logo"
+              src="${escapeHtml(away.logo || '')}"
               alt=""
-              loading="lazy"
-              referrerpolicy="no-referrer">
-            <span class="team-name">${safe(away.name)}</span>
+              loading="lazy">
+            <span class="nasa-match-team-name">${escapeHtml(away.name)}</span>
           </div>
         </div>
       `;
     }
 
-    function leagueRank(league) {
-      return priorityLeagues.get(Number(league.id)) ?? 999;
+    function updateTimezoneText() {
+      const zone = selectedZone();
+
+      const readable = zone === 'Asia/Baghdad'
+        ? t('baghdad')
+        : `${t('local')} (${zone.replaceAll('_', ' ')})`;
+
+      timeDescription.textContent = `${t('using')} ${readable}`;
+
+      zoneSelect.options[0].textContent = t('local');
+      zoneSelect.options[1].textContent = t('baghdad');
     }
 
     function render() {
-      if (loading) {
-        elements.matches.innerHTML =
-          `<div class="state">${safe(t("loading"))}</div>`;
+      updateTimezoneText();
+      search.placeholder = t('search');
+
+      if (state === 'loading') {
+        content.innerHTML =
+          `<div class="matches-state">${escapeHtml(t('loading'))}</div>`;
         return;
       }
 
-      const search = elements.search.value
-        .trim()
-        .toLocaleLowerCase();
+      if (state === 'error') {
+        count.textContent = '';
+        updated.textContent = '';
+
+        content.innerHTML = `
+          <div class="matches-state">
+            ${escapeHtml(t('unavailable'))}
+            <div>
+              <button type="button" class="matches-retry" id="matches-retry">
+                ${escapeHtml(t('retry'))}
+              </button>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('matches-retry')
+          ?.addEventListener('click', loadMatches);
+        return;
+      }
+
+      const query = search.value.trim().toLocaleLowerCase();
+      const selectedDate = localDate(dayOffset());
 
       const filtered = fixtures.filter(match => {
-        const text = [
+        const haystack = [
           match.home?.name,
           match.away?.name,
           match.league?.name,
           match.league?.country
-        ].join(" ").toLocaleLowerCase();
+        ].join(' ').toLocaleLowerCase();
 
-        return text.includes(search);
+        return haystack.includes(query) &&
+          dateInZone(match.date) === selectedDate;
       });
 
-      elements.count.textContent =
-        `${filtered.length.toLocaleString(language === "ar" ? "ar-IQ" : "en-US")} ${t("matches")}`;
+      count.textContent = `${filtered.length.toLocaleString()} ${t('matches')}`;
 
-      elements.updated.textContent = lastUpdated
-        ? `${t("updated")}: ${formatTime(lastUpdated)}`
-        : "";
+      updated.textContent = lastUpdated
+        ? `${t('updated')}: ${formatTime(lastUpdated)}`
+        : '';
 
       if (!filtered.length) {
-        elements.matches.innerHTML =
-          `<div class="state">${safe(t("empty"))}</div>`;
+        content.innerHTML =
+          `<div class="matches-state">${escapeHtml(t('empty'))}</div>`;
         return;
       }
 
@@ -617,151 +651,129 @@ const apiUrl = "https://nasa-matches-api.mohammedalnajjar2211.workers.dev";
 
       for (const match of filtered) {
         const league = match.league || {};
-        const key = String(league.id ?? league.name ?? "other");
+        const key = String(league.id ?? league.name ?? 'other');
 
         if (!groups.has(key)) {
-          groups.set(key, {
-            league,
-            matches: []
-          });
+          groups.set(key, { league, matches: [] });
         }
 
         groups.get(key).matches.push(match);
       }
 
-      const sortedGroups = [...groups.values()].sort((a, b) => {
-        const rankDifference =
-          leagueRank(a.league) - leagueRank(b.league);
+      const sorted = [...groups.values()].sort((a, b) => {
+        const first = priority.get(Number(a.league.id)) ?? 999;
+        const second = priority.get(Number(b.league.id)) ?? 999;
 
-        if (rankDifference !== 0) return rankDifference;
-
-        return String(a.league.name || "").localeCompare(
-          String(b.league.name || "")
-        );
+        return first - second ||
+          String(a.league.name || '').localeCompare(
+            String(b.league.name || '')
+          );
       });
 
-      elements.matches.innerHTML = sortedGroups.map(group => {
-        const matches = group.matches.sort(
+      content.innerHTML = sorted.map(group => {
+        const orderedMatches = group.matches.sort(
           (a, b) => (a.timestamp || 0) - (b.timestamp || 0)
         );
 
         return `
-          <section class="league">
-            <div class="league-head">
-              <img class="league-logo"
-                src="${safe(group.league.logo || "")}"
+          <section class="nasa-match-league">
+            <div class="nasa-match-league-head">
+              <img class="nasa-match-league-logo"
+                src="${escapeHtml(group.league.logo || '')}"
                 alt=""
                 loading="lazy">
               <div>
-                <div class="league-name">${safe(group.league.name || "")}</div>
-                <div class="league-country">${safe(group.league.country || "")}</div>
+                <div class="nasa-match-league-name">
+                  ${escapeHtml(group.league.name || '')}
+                </div>
+                <div class="nasa-match-league-country">
+                  ${escapeHtml(group.league.country || '')}
+                </div>
               </div>
             </div>
-            ${matches.map(matchHtml).join("")}
+            ${orderedMatches.map(matchCard).join('')}
           </section>
         `;
-      }).join("");
+      }).join('');
     }
 
     async function loadMatches() {
-      const currentRequest = ++requestId;
-      loading = true;
-      fixtures = [];
-      lastUpdated = "";
+      const request = ++requestNumber;
+      state = 'loading';
       render();
 
       try {
-        const response = await fetch(
-          `${apiUrl}/api/matches?day=${encodeURIComponent(selectedDay)}`
+        // Adjacent Baghdad dates cover timezone differences.
+        const days = ['yesterday', 'today', 'tomorrow'];
+
+        const results = await Promise.all(
+          days.map(async item => {
+            const response = await fetch(
+              `${apiUrl}/api/matches?day=${item}`
+            );
+
+            if (!response.ok) return null;
+            return response.json();
+          })
         );
 
-        if (!response.ok) {
-          if (response.status === 503) {
-            throw new Error("notReady");
+        if (request !== requestNumber) return;
+
+        const available = results.filter(Boolean);
+
+        if (!available.length) throw new Error('No data');
+
+        const unique = new Map();
+
+        for (const result of available) {
+          for (const match of result.matches || []) {
+            unique.set(match.id, match);
           }
-          throw new Error("unavailable");
         }
 
-        const data = await response.json();
+        fixtures = [...unique.values()];
 
-        if (currentRequest !== requestId) return;
+        lastUpdated = available
+          .map(result => result.updated_at)
+          .filter(Boolean)
+          .sort()
+          .at(-1) || '';
 
-        fixtures = Array.isArray(data.matches) ? data.matches : [];
-        lastUpdated = data.updated_at || "";
-        loading = false;
+        state = 'ready';
         render();
-      } catch (error) {
-        if (currentRequest !== requestId) return;
-
-        loading = false;
-
-        const message = error.message === "notReady"
-          ? t("notReady")
-          : t("unavailable");
-
-        elements.count.textContent = "";
-        elements.updated.textContent = "";
-
-        elements.matches.innerHTML = `
-          <div class="state">
-            <strong>${safe(message)}</strong>
-            <button class="retry" id="retryButton" type="button">
-              ${safe(t("retry"))}
-            </button>
-          </div>
-        `;
-
-        document.getElementById("retryButton")
-          ?.addEventListener("click", loadMatches);
+      } catch {
+        if (request !== requestNumber) return;
+        state = 'error';
+        render();
       }
     }
 
-    function updateLanguage() {
-      const isArabic = language === "ar";
+    document.querySelectorAll('[data-match-day]').forEach(button => {
+      button.addEventListener('click', () => {
+        day = button.dataset.matchDay;
 
-      document.documentElement.lang = language;
-      document.documentElement.dir = isArabic ? "rtl" : "ltr";
-
-      elements.title.textContent = t("title");
-      elements.subtitle.textContent = t("subtitle");
-      elements.yesterday.textContent = t("yesterday");
-      elements.today.textContent = t("today");
-      elements.tomorrow.textContent = t("tomorrow");
-      elements.search.placeholder = t("search");
-      elements.home.textContent = t("home");
-      elements.lang.textContent = isArabic ? "English" : "العربية";
-
-      render();
-    }
-
-    document.querySelectorAll("[data-day]").forEach(button => {
-      button.addEventListener("click", () => {
-        selectedDay = button.dataset.day;
-
-        document.querySelectorAll("[data-day]").forEach(item => {
-          item.classList.toggle(
-            "active",
-            item.dataset.day === selectedDay
-          );
+        document.querySelectorAll('[data-match-day]').forEach(item => {
+          item.classList.toggle('active', item === button);
         });
 
-        loadMatches();
+        render();
       });
     });
 
-    elements.search.addEventListener("input", render);
+    search.addEventListener('input', render);
+    zoneSelect.addEventListener('change', render);
 
-    elements.lang.addEventListener("click", () => {
-      language = language === "en" ? "ar" : "en";
-      updateLanguage();
+    // React to the existing NASA language picker.
+    const languageObserver = new MutationObserver(render);
+
+    languageObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-lang']
     });
 
-    updateLanguage();
     loadMatches();
 
-    // Refresh displayed data every five minutes.
-    // The Worker serves KV data; this does not call API-Football.
+    // Refresh from Cloudflare KV every five minutes.
     setInterval(loadMatches, 5 * 60 * 1000);
   </script>
-</body>
-</html>
+</Base>

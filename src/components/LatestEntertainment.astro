@@ -1,0 +1,253 @@
+
+---
+const API = 'https://nasa-tmdb-api.mohammedalnajjar2211.workers.dev/api/trending';
+---
+
+<section class="latest-entertainment section" aria-labelledby="latest-title">
+  <div class="container">
+    <div class="latest-heading">
+      <span class="eyebrow" data-en="LATEST ENTERTAINMENT" data-ar="أحدث الأفلام والمسلسلات">
+        LATEST ENTERTAINMENT
+      </span>
+
+      <h2
+        id="latest-title"
+        data-en="Latest Movies & Series"
+        data-ar="أحدث الأفلام والمسلسلات"
+      >
+        Latest Movies & Series
+      </h2>
+
+      <p
+        class="muted"
+        data-en="Discover trending Arabic, Turkish and international entertainment."
+        data-ar="اكتشف أحدث الأفلام والمسلسلات العربية والتركية والعالمية."
+      >
+        Discover trending Arabic, Turkish and international entertainment.
+      </p>
+
+      <div class="latest-categories">
+        <span data-en="Arabic" data-ar="عربي">Arabic</span>
+        <span data-en="Turkish" data-ar="تركي">Turkish</span>
+        <span data-en="International" data-ar="أجنبي">International</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="latest-viewport" aria-label="Movies and TV series">
+    <div class="latest-track" id="nasa-latest-track"></div>
+  </div>
+
+  <div class="latest-attribution">
+    <span>This product uses the TMDB API but is not endorsed or certified by TMDB.</span>
+  </div>
+</section>
+
+<style>
+  .latest-entertainment {
+    overflow: hidden;
+    background: linear-gradient(180deg, #080e1d 0%, #101a30 55%, #080e1d 100%);
+    padding: 55px 0 45px;
+  }
+
+  .latest-heading {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .latest-heading h2 {
+    color: #fff;
+    font-size: clamp(24px, 3vw, 36px);
+    margin: 9px 0;
+  }
+
+  .latest-heading .eyebrow {
+    color: #e2b96b;
+    letter-spacing: 2px;
+  }
+
+  .latest-heading .muted {
+    color: #aab5ca;
+  }
+
+  .latest-categories {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .latest-categories span {
+    border: 1px solid #ffffff25;
+    border-radius: 30px;
+    padding: 7px 16px;
+    color: #e6edf9;
+    background: #ffffff0b;
+    font-size: 12px;
+  }
+
+  .latest-viewport {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    direction: ltr;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 5%,
+      #000 95%,
+      transparent
+    );
+  }
+
+  .latest-track {
+    display: flex;
+    width: max-content;
+    gap: 16px;
+    padding: 10px 0 20px;
+  }
+
+  .latest-track.is-ready {
+    animation: latest-scroll 90s linear infinite;
+  }
+
+  .latest-viewport:hover .latest-track {
+    animation-play-state: paused;
+  }
+
+  .latest-poster {
+    width: 155px;
+    flex: 0 0 155px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #172238;
+    border: 1px solid #ffffff18;
+    box-shadow: 0 8px 24px #0004;
+  }
+
+  .latest-poster img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+  }
+
+  .latest-poster-info {
+    padding: 10px;
+    color: white;
+  }
+
+  .latest-poster-title {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    min-height: 34px;
+    margin: 0;
+  }
+
+  .latest-poster-meta {
+    color: #b9c4d7;
+    font-size: 11px;
+    margin-top: 5px;
+  }
+
+  .latest-attribution {
+    margin: 18px auto 0;
+    padding: 0 18px;
+    text-align: center;
+    color: #8997ad;
+    font-size: 10px;
+  }
+
+  @keyframes latest-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 700px) {
+    .latest-entertainment { padding: 38px 0; }
+    .latest-poster { width: 116px; flex-basis: 116px; }
+    .latest-track { gap: 10px; }
+    .latest-poster-info { padding: 8px; }
+    .latest-viewport { mask-image: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .latest-track.is-ready { animation: none; }
+    .latest-viewport { overflow-x: auto; }
+  }
+</style>
+
+<script define:vars={{ API }}>
+  (() => {
+    const track = document.getElementById('nasa-latest-track');
+    if (!track || track.dataset.initialized) return;
+    track.dataset.initialized = 'true';
+
+    function createPoster(movie) {
+      const card = document.createElement('article');
+      card.className = 'latest-poster';
+
+      const img = document.createElement('img');
+      img.src = movie.poster;
+      img.alt = movie.title || 'Movie poster';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+
+      const info = document.createElement('div');
+      info.className = 'latest-poster-info';
+
+      const title = document.createElement('p');
+      title.className = 'latest-poster-title';
+      title.textContent = movie.title || '';
+
+      const meta = document.createElement('div');
+      meta.className = 'latest-poster-meta';
+      meta.textContent = `${movie.category || ''} · ${movie.year || ''}`;
+
+      info.append(title, meta);
+      card.append(img, info);
+      return card;
+    }
+
+    async function loadMovies() {
+      try {
+        const response = await fetch(API);
+        if (!response.ok) return;
+
+        const data = await response.json();
+        if (!Array.isArray(data.items) || !data.items.length) return;
+
+        const movies = data.items.filter(
+          movie => movie.poster && movie.title
+        );
+
+        if (!movies.length) return;
+
+        const fragment = document.createDocumentFragment();
+
+        for (const movie of movies) {
+          fragment.appendChild(createPoster(movie));
+        }
+
+        track.replaceChildren(fragment);
+
+        if (movies.length > 1) {
+          const originals = Array.from(track.children);
+          originals.forEach(card => {
+            const clone = card.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true');
+            track.appendChild(clone);
+          });
+
+          track.classList.add('is-ready');
+        }
+      } catch (_) {
+        // Hide empty carousel if API is temporarily unavailable.
+      }
+    }
+
+    loadMovies();
+  })();
+</script>

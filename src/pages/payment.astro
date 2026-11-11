@@ -47,6 +47,10 @@ const description = 'Secure payment instructions, app downloads, and USD to IQD 
         <div class="payment-card receipt">
           <h2 data-en="3. Send your payment receipt" data-ar="٣. أرسل صورة إيصال الدفع">3. Send your payment receipt</h2>
           <p data-en="Important: After completing the transfer, send a clear screenshot of the successful payment through our usual support channel. Hide your card number and any sensitive information." data-ar="مهم جداً: بعد إكمال التحويل، أرسل صورة واضحة لإيصال الدفع الناجح عبر قناة الدعم المعتادة. أخفِ رقم بطاقتك وأي معلومات حساسة.">Important: After completing the transfer, send a clear screenshot of the successful payment through our usual support channel. Hide your card number and any sensitive information.</p>
+          <a class="whatsapp-receipt" href="https://wa.me/46700411342?text=Hello%20NASA%20IPTV%2C%20I%20have%20completed%20the%20payment.%20I%20will%20attach%20the%20payment%20receipt%20here." target="_blank" rel="noopener noreferrer" aria-label="Send payment receipt via WhatsApp">
+            <span aria-hidden="true">📲</span> <span data-en="Send payment receipt via WhatsApp" data-ar="إرسال صورة الدفع عبر واتساب">Send payment receipt via WhatsApp</span> ↗
+          </a>
+          <p class="muted" data-en="WhatsApp will open with a prepared message. Attach the receipt image manually before sending." data-ar="سيفتح واتساب برسالة جاهزة. أرفق صورة الإيصال بنفسك قبل الإرسال.">WhatsApp will open with a prepared message. Attach the receipt image manually before sending.</p>
           <p class="secure" data-en="🔒 Your payment information should be handled securely. Both parties retain their applicable rights." data-ar="🔒 احرص على أمان معلومات الدفع. حقوق الطرفين محفوظة وفق الشروط والأنظمة المعمول بها.">🔒 Your payment information should be handled securely. Both parties retain their applicable rights.</p>
           <p class="muted" data-en="If your card is declined, try another card that belongs to you or contact your bank. Do not retry repeatedly if a charge is pending." data-ar="إذا رُفضت بطاقتك، جرّب بطاقة أخرى تخصك أو تواصل مع البنك. لا تكرر المحاولة إذا كانت هناك عملية معلّقة.">If your card is declined, try another card that belongs to you or contact your bank. Do not retry repeatedly if a charge is pending.</p>
         </div>
@@ -55,10 +59,22 @@ const description = 'Secure payment instructions, app downloads, and USD to IQD 
   </section>
 </Base>
 <style>
+  /* Match NASA dark theme even when global site styles use a light page background. */
+  :global(body:has(#payment-page)){background:#07111f!important;color:#edf5ff}
+  :global(body:has(#payment-page) main){background:linear-gradient(180deg,#08172b 0%,#091525 52%,#07111f 100%)!important;min-height:75vh}
+  :global(body:has(#payment-page) .payment-head h1){color:#f5f9ff!important;text-shadow:none!important}
+  :global(body:has(#payment-page) .payment-head p){color:#b9cce4!important}
+  :global(body:has(#payment-page) .payment-head .eyebrow){color:#62b6ff!important}
+  /* Seasonal sale overlays obscure the instructions; disable them on payment only. */
+  :global(body:has(#payment-page) .seasonal-effects),
+  :global(body:has(#payment-page) .seasonal-overlay),
+  :global(body:has(#payment-page) .black-friday-effects),
+  :global(body:has(#payment-page) .black-friday-overlay){display:none!important}
   .payment-wrap{max-width:1160px;margin:0 auto;padding:64px 20px 90px;color:#edf5ff;direction:ltr}
   :global(html[dir="rtl"]) .payment-wrap{direction:rtl}
   .payment-head{text-align:center;margin-bottom:34px}.eyebrow{color:#63b7ff;letter-spacing:.14em;font-size:.75rem;font-weight:800}.payment-head h1{font-size:clamp(2rem,4vw,3.3rem);margin:12px 0}.payment-head p{color:#aabbd0;max-width:670px;margin:auto}
   .payment-grid{display:grid;grid-template-columns:1.18fr 1fr;gap:22px;align-items:start}.payment-side{display:grid;gap:22px}.payment-card{background:linear-gradient(145deg,#101e36,#091322);border:1px solid #284263;border-radius:20px;padding:27px;box-shadow:0 16px 40px #0003}.payment-card h2{font-size:1.3rem;margin:0 0 20px}.payment-card h2:not(:first-child){margin-top:30px}.app-links{display:flex;flex-wrap:wrap;gap:12px}.app-links a,.account button{background:#1679d5;color:white;text-decoration:none;padding:12px 17px;border:0;border-radius:10px;font-weight:700;cursor:pointer}.app-links a:hover,.account button:hover{background:#2793f8}.steps{padding-inline-start:22px;line-height:1.9;color:#d2ddeb}.steps li{padding-inline-start:5px;margin-bottom:9px}.account{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #385779;background:#071121;border-radius:14px;padding:15px;margin-top:24px;flex-wrap:wrap}.account small,.result small{display:block;color:#a5bad1;margin-bottom:7px}.account strong{font-size:1.35rem;letter-spacing:.03em;direction:ltr;display:block}.calculator label{display:block;margin:16px 0 7px;font-size:.92rem;color:#d7e5f6}.calculator input{width:100%;box-sizing:border-box;border-radius:10px;padding:13px;background:#071121;border:1px solid #42638a;color:#fff;font-size:1.1rem}.result{margin-top:20px;background:#0b2b4b;border-radius:12px;padding:18px}.result strong{font-size:1.75rem;color:#8bd0ff;direction:ltr;display:block}.muted{font-size:.88rem;line-height:1.65;color:#aabbd0}.receipt p{line-height:1.8}.secure{padding:14px;border:1px solid #285e7a;border-radius:12px;background:#102c3c}
+  .whatsapp-receipt{display:flex;align-items:center;justify-content:center;gap:9px;background:#168b5b;color:#fff!important;text-decoration:none;border-radius:12px;padding:15px 18px;font-weight:800;text-align:center;margin:18px 0 10px;transition:background .2s ease}.whatsapp-receipt:hover{background:#20a46e}
   @media(max-width:800px){.payment-grid{grid-template-columns:1fr}.payment-wrap{padding:40px 14px 80px}.payment-card{padding:20px}.app-links a{flex:1 1 170px;text-align:center}}
 </style>
 <script>

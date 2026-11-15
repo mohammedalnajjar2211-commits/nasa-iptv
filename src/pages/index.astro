@@ -51,6 +51,7 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
         </span>
 
         <h1
+          id="nasa-typing-title"
           data-en="Matches streaming you just can’t miss!"
           data-ar="تجربة ترفيه أفضل، بتصميم أبسط وأسرع."
         >
@@ -67,7 +68,7 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
         <div class="hero-actions">
           <a
             href={asset('shop/')}
-            class="btn"
+            class="btn nasa-glow-btn"
             data-en="Subscribe Now →"
             data-ar="تصفح المنتجات ←"
           >
@@ -87,7 +88,7 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
 
       <!-- NASA IPTV TV Preview -->
       <div class="hero-visual">
-        <div class="tv-shell nasa-tv">
+        <div class="tv-shell nasa-tv nasa-glow">
           <div class="nasa-tv-screen">
             <img
               src={asset('images/nasa-tv-screen.webp')}
@@ -132,7 +133,7 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
 
       <div class="featured-products-footer">
         <a
-          class="btn featured-products-all"
+          class="btn featured-products-all nasa-glow-btn"
           href={asset('shop/')}
           data-en="View all products →"
           data-ar="عرض جميع المنتجات ←"
@@ -496,3 +497,129 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
 
 </style>
 
+
+
+<style is:global>
+/* NASA IPTV - animated cyan borders */
+@property --nasa-glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.nasa-glow,
+.nasa-glow-btn {
+  position: relative;
+  isolation: isolate;
+}
+
+.nasa-glow::after,
+.nasa-glow-btn::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border: 2px solid transparent;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--nasa-glow-angle),
+    transparent 0%,
+    transparent 60%,
+    #00bfff 73%,
+    #a8f3ff 82%,
+    transparent 93%
+  ) border-box;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: nasa-glow-spin 4s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes nasa-glow-spin {
+  to { --nasa-glow-angle: 360deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nasa-glow::after,
+  .nasa-glow-btn::after {
+    animation: none;
+  }
+}
+</style>
+
+
+
+
+<!-- NASA homepage typewriter: run once per language per tab session -->
+<script is:inline>
+(() => {
+  const init = () => {
+    const title = document.getElementById('nasa-typing-title');
+    if (!title) return;
+
+    const language = () => document.documentElement.lang?.toLowerCase().startsWith('ar') ? 'ar' : 'en';
+    const getText = (lang) => title.getAttribute('data-' + lang) || '';
+    const seen = (lang) => {
+      try { return sessionStorage.getItem('nasa-home-typewriter-v6-' + lang) === '1'; }
+      catch { return false; }
+    };
+    const markSeen = (lang) => {
+      try { sessionStorage.setItem('nasa-home-typewriter-v6-' + lang, '1'); }
+      catch {}
+    };
+
+    let timer = null;
+    let activeLang = null;
+    let generation = 0;
+
+    const run = (lang) => {
+      generation++;
+      const runId = generation;
+      clearInterval(timer);
+      activeLang = lang;
+      const text = getText(lang);
+      if (!text) return;
+      if (seen(lang) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        title.textContent = text;
+        return;
+      }
+      const chars = Array.from(text);
+      let index = 0;
+      title.textContent = '';
+      timer = window.setInterval(() => {
+        if (runId !== generation || language() !== lang) {
+          clearInterval(timer);
+          return;
+        }
+        title.textContent = chars.slice(0, ++index).join('');
+        if (index >= chars.length) {
+          clearInterval(timer);
+          title.textContent = text;
+          markSeen(lang);
+        }
+      }, 65);
+    };
+
+    // Wait until Base.astro applies its saved language and translations.
+    window.setTimeout(() => run(language()), 450);
+
+    new MutationObserver(() => {
+      const next = language();
+      if (next === activeLang) return;
+      // Let the language selector finish replacing translated text first.
+      window.setTimeout(() => {
+        if (language() === next) run(next);
+      }, 0);
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+})();
+</script>

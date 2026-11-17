@@ -10,7 +10,18 @@ const path = Astro.url.pathname;
 <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <meta name="robots" content="index,follow,max-image-preview:large"/><meta property="og:site_name" content="NASA IPTV"/><meta name="twitter:card" content="summary_large_image"/><meta property="og:image" content={new URL("/images/nasa-logo-original.webp",Astro.site).href}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/>
 <script is:inline>try{document.documentElement.dataset.lang=localStorage.getItem('nasa-lang')||'en'}catch(e){document.documentElement.dataset.lang='en'}</script>
-<link rel="stylesheet" href="/family-font.css?v=3" /></head><body>
+<link rel="stylesheet" href="/family-font.css?v=3" /><!-- NASA_TITLE_ALIGNMENT_FIX -->
+<style is:global>
+html[lang="ar"] #nasa-typing-title {
+  text-align: right !important;
+  text-align-last: right !important;
+  direction: rtl !important;
+  white-space: pre-line !important;
+  display: block !important;
+  width: 100% !important;
+}
+</style>
+</head><body>
 <header class="header">
 <div class="nasa-weather-bar" id="nasa-weather-bar" hidden aria-label="Local weather">
   <div class="container nasa-weather-inner">

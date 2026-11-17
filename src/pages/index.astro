@@ -576,10 +576,10 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
       const text = getText(lang);
       if (!text) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        title.textContent = text;
+        title.textContent = lang === 'ar' ? text.replace('، ', '،' + String.fromCharCode(10)) : text;
         return;
       }
-      const chars = Array.from(text);
+      const chars = Array.from(lang === 'ar' ? text.replace('، ', '،' + String.fromCharCode(10)) : text);
       let index = 0;
       title.textContent = '';
       timer = window.setInterval(() => {
@@ -590,7 +590,7 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
         title.textContent = chars.slice(0, ++index).join('');
         if (index >= chars.length) {
           clearInterval(timer);
-          title.textContent = text;
+          title.textContent = lang === 'ar' ? text.replace('، ', '،' + String.fromCharCode(10)) : text;
 
         }
       }, 65);

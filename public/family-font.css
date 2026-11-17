@@ -87,3 +87,7 @@ html[lang="ar"] #nasa-typing-title {
     font-size: clamp(17px, 4.5vw, 24px) !important;
   }
 }
+
+html[lang="ar"] #nasa-typing-title {
+  white-space: pre-line !important;
+}

@@ -10,7 +10,7 @@ const path = Astro.url.pathname;
 <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <meta name="robots" content="index,follow,max-image-preview:large"/><meta property="og:site_name" content="NASA IPTV"/><meta name="twitter:card" content="summary_large_image"/><meta property="og:image" content={new URL("/images/nasa-logo-original.webp",Astro.site).href}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/>
 <script is:inline>try{document.documentElement.dataset.lang=localStorage.getItem('nasa-lang')||'en'}catch(e){document.documentElement.dataset.lang='en'}</script>
-</head><body>
+<link rel="stylesheet" href="/family-font.css?v=3" /></head><body>
 <header class="header">
 <div class="nasa-weather-bar" id="nasa-weather-bar" hidden aria-label="Local weather">
   <div class="container nasa-weather-inner">
@@ -101,7 +101,7 @@ const setLang=(lang)=>{
   document.documentElement.dataset.lang=lang;
   document.documentElement.lang=lang;
   document.documentElement.dir=lang==='ar'?'rtl':'ltr';
-  document.querySelectorAll('[data-en][data-ar]').forEach(el=>{el.textContent=el.dataset[lang]});
+  document.querySelectorAll('[data-en][data-ar]').forEach(el=>{if(el.id==='nasa-typing-title'){el.textContent=el.dataset[lang];return;}el.textContent=el.dataset[lang]});
   if(languageTrigger){languageTrigger.querySelector('.lang-label').textContent=lang==='ar'?'العربية':'English'}
   document.querySelectorAll('[data-select-lang]').forEach(el=>{const selected=el.dataset.selectLang===lang;el.classList.toggle('is-selected',selected);el.setAttribute('aria-pressed',String(selected))});
   try{localStorage.setItem('nasa-lang',lang)}catch(e){}

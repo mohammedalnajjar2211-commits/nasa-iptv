@@ -107,3 +107,13 @@ html[lang="ar"] #nasa-typing-title {
     text-align: right !important;
   }
 }
+
+/* NASA hero title - final alignment */
+html[lang="ar"] #nasa-typing-title {
+  text-align: right !important;
+  text-align-last: right !important;
+  direction: rtl !important;
+  white-space: pre-line !important;
+  display: block !important;
+  width: 100% !important;
+}

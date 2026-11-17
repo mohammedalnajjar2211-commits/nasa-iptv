@@ -562,14 +562,7 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
 
     const language = () => document.documentElement.lang?.toLowerCase().startsWith('ar') ? 'ar' : 'en';
     const getText = (lang) => title.getAttribute('data-' + lang) || '';
-    const seen = (lang) => {
-      try { return sessionStorage.getItem('nasa-home-typewriter-v6-' + lang) === '1'; }
-      catch { return false; }
-    };
-    const markSeen = (lang) => {
-      try { sessionStorage.setItem('nasa-home-typewriter-v6-' + lang, '1'); }
-      catch {}
-    };
+
 
     let timer = null;
     let activeLang = null;
@@ -582,7 +575,7 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
       activeLang = lang;
       const text = getText(lang);
       if (!text) return;
-      if (seen(lang) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         title.textContent = text;
         return;
       }
@@ -598,7 +591,7 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
         if (index >= chars.length) {
           clearInterval(timer);
           title.textContent = text;
-          markSeen(lang);
+
         }
       }, 65);
     };

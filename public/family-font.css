@@ -28,3 +28,12 @@ html[data-lang="ar"] body :is(h1,h2,h3,h4,h5,h6,p,span,a,button,li,label,input,t
     font-family: "Family SF Arabic", sans-serif !important;
 }
 
+
+/* NASA hero heading - SF Pro Arabic */
+@media (min-width: 1024px) {
+  html[lang="ar"] #nasa-typing-title {
+    font-size: clamp(2.3rem, 3.4vw, 3.7rem) !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0 !important;
+  }
+}

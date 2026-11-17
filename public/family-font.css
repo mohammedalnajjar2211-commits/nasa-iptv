@@ -56,3 +56,19 @@ html[lang="ar"] #nasa-typing-title {
     line-height: 1.35 !important;
   }
 }
+
+/* NASA hero: compact two-line Arabic title */
+html[lang="ar"] #nasa-typing-title {
+  font-size: clamp(19px, 3vw, 29px) !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+  max-width: 100% !important;
+  text-wrap: wrap !important;
+}
+
+@media (max-width: 767px) {
+  html[lang="ar"] #nasa-typing-title {
+    font-size: clamp(16px, 4vw, 22px) !important;
+    line-height: 1.35 !important;
+  }
+}

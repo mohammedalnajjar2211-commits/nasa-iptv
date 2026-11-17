@@ -53,7 +53,7 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
         <h1
           id="nasa-typing-title"
           data-en="Matches streaming you just can’t miss!"
-          data-ar="تجربة ترفيه أفضل،&#10;بتصميم أبسط وأسرع."
+          data-ar="تجربة ترفيه أفضل، بتصميم أبسط وأسرع."
         >
           Matches streaming you just can’t miss!
         </h1>
@@ -573,13 +573,13 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
       const runId = generation;
       clearInterval(timer);
       activeLang = lang;
-      const text = getText(lang);
+      const text = lang === 'ar' ? 'تجربة ترفيه أفضل،' + String.fromCharCode(10) + 'بتصميم أبسط وأسرع.' : getText(lang);
       if (!text) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        title.textContent = lang === 'ar' ? text.replace('، ', '،' + String.fromCharCode(10)) : text;
+        title.textContent = text;
         return;
       }
-      const chars = Array.from(lang === 'ar' ? text.replace('، ', '،' + String.fromCharCode(10)) : text);
+      const chars = Array.from(text);
       let index = 0;
       title.textContent = '';
       timer = window.setInterval(() => {
@@ -590,7 +590,7 @@ const asset = (path) => `${base}${path.replace(/^\/+/, '')}`;
         title.textContent = chars.slice(0, ++index).join('');
         if (index >= chars.length) {
           clearInterval(timer);
-          title.textContent = lang === 'ar' ? text.replace('، ', '،' + String.fromCharCode(10)) : text;
+          title.textContent = text;
 
         }
       }, 65);

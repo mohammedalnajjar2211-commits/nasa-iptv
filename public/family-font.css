@@ -91,3 +91,19 @@ html[lang="ar"] #nasa-typing-title {
 html[lang="ar"] #nasa-typing-title {
   white-space: pre-line !important;
 }
+
+/* NASA Arabic hero: align both lines with description */
+html[lang="ar"] #nasa-typing-title {
+  text-align: right !important;
+  direction: rtl !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  white-space: pre-line !important;
+}
+
+@media (max-width: 767px) {
+  html[lang="ar"] #nasa-typing-title {
+    text-align: right !important;
+  }
+}
